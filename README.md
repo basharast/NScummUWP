@@ -9,7 +9,7 @@
 
 
 # Important
-Alpha project for testing usage, original ScummVM is working better
+WIP project for testing usage, original ScummVM is working better
 
 
 # Features
