@@ -83,7 +83,7 @@ namespace NScumm.MonoGame
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            ShowDialog("1-Extract game content to folder\n2-Click add and select the folder\n3-Enjoy\n\nShortcuts\nF5: Show Menu\nSpace: Pause\nEsc: Skip\n\nCreated by scemino\nEnhanced by Bashar Astifan\nGitHub: https://github.com/basharast/NScummEmulator");
+            ShowDialog("1-Extract game content to folder\n2-Click add and select the folder\n3-Enjoy\n\nShortcuts\nF5: Show Menu\nSpace: Pause\nEsc: Skip\n\nCreated by scemino\nEnhanced by Bashar Astifan\nGitHub: https://github.com/basharast/NScummUWP");
         }
 
         private async void ImportDataBase_Click(object sender, RoutedEventArgs e)
