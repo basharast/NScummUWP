@@ -1,0 +1,1 @@
+MainPackage=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\x64\Release\NScumm.MonoGame_1.1.38.0_x64.appx

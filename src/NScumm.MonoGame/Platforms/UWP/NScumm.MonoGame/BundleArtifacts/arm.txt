@@ -1,0 +1,6 @@
+MainPackage=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_ARM.appx
+ResourcePack=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_language-fr.appx
+ResourcePack=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_scale-100.appx
+ResourcePack=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_scale-125.appx
+ResourcePack=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_scale-150.appx
+ResourcePack=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\ARM\Release\NScumm.MonoGame_1.1.39.0_scale-400.appx

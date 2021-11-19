@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="NScumm.MonoGame.GamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:visualizer="using:NotificationsVisualizerLibrary"
+    mc:Ignorable="d" Background="Black" RequestedTheme="Default">
+    <Grid>
+        <ProgressBar Canvas.ZIndex="100" Height="32" x:Name="SavesBar" Visibility="Collapsed" IsIndeterminate="True" HorizontalAlignment="Stretch" VerticalAlignment="Top"> </ProgressBar>
+    <SwapChainPanel x:Name="GamePanel" Tapped="GamePanel_Tapped"/>
+        <TextBlock x:Name="FrameRateText" Visibility="{Binding ElementName=ShowFPS, Path=IsChecked}" Text="00" FontWeight="Bold" HorizontalAlignment="Right" Foreground="DodgerBlue" VerticalAlignment="Top" Margin="0,20,20,0"></TextBlock>
+        <visualizer:PreviewTile
+    x:Name="WidePreviewTile"
+    IsAnimationEnabled="True"
+    TileSize="Wide" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
+        <CommandBar x:Name="MenuBar" Tapped="GamePanel_Tapped" Foreground="White" Background="#99000000" VerticalAlignment="Bottom" Opacity="0.5">
+            
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="More" Label="More Options">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem   x:Name="ToggleKeyboard" Text="Keyboard" Click="ToggleKeyboard_Click"/>
+                            <MenuFlyoutItem   x:Name="ShowInfo" Text="Game Info" Click="ShowInfo_Click"/>
+                            <MenuFlyoutSeparator></MenuFlyoutSeparator>
+                            <ToggleMenuFlyoutItem  x:Name="ShowFPS" Text="Show FPS" Click="ShowFPS_Click"/>
+                            <ToggleMenuFlyoutItem  x:Name="FullScreen" Text="Full Screen" Click="FullScreen_Click"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarButton Icon="MapDrive" Label="Saves Storage">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem   x:Name="ImportSaves" Text="Import Saves" Click="ImportSaves_Click"/>
+                            <MenuFlyoutItem Text="Export Saves" x:Name="ExportSaves" Click="ExportSaves_Click"/>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Name="ClearSaves" Text="Clear Saves" Click="ClearSaves_Click"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarSeparator Visibility="Collapsed" ></AppBarSeparator>
+                <AppBarButton Icon="Refresh" Label="Quick Load" x:Name="QuickLoad" Click="QuickLoad_Click"></AppBarButton>
+                <AppBarButton Icon="Save" Label="Quick Save" x:Name="QuickSave" Click="QuickSave_Click"></AppBarButton>
+                 <AppBarSeparator Visibility="Collapsed" ></AppBarSeparator>
+                <AppBarSeparator></AppBarSeparator>
+                
+                <AppBarToggleButton Icon="Pause" Label="Pause" x:Name="PauseToggle" Checked="PauseToggle_Checked" Unchecked="PauseToggle_Checked"></AppBarToggleButton>
+                <AppBarButton Label="Menu" x:Name="ToggleMenu" Click="ToggleMenu_Click">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDE3;"
+                                              Grid.Column="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center" />
+                </AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarButton Icon="Cancel" Label="Exit" x:Name="ExitGame" Click="ExitGame_Click"></AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Grid>
+</Page>
