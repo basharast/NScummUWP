@@ -20,9 +20,9 @@
     <PackageCertificateKeyFile>
     </PackageCertificateKeyFile>
     <PackageCertificateThumbprint>8806A866FCF0EC4A42BBE5601A87485B293537D3</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>

@@ -56,7 +56,7 @@ namespace NScumm.MonoGame
             this.info = info;
         }
 
-        public bool engineFaildToStart = true;
+        public bool engineFaildToStart = false;
         public override void LoadContent()
         {
             if (!contentLoaded)
