@@ -45,11 +45,11 @@ namespace NScumm.Scumm.Audio.IMuse
         protected MidiDriver _midi_native;
         protected TimerCallbackInfo _timer_info_adlib;
         protected TimerCallbackInfo _timer_info_native;
-    
-        protected GameId _game_id;
 
-        public GameId GameId { get { return _game_id; } }
-    
+        protected string _game_id;
+
+        public string GameId { get { return _game_id; } }
+
         // Plug-in SysEx handling. Right now this only supports one
         // custom SysEx handler for the hardcoded IMUSE_SYSEX_ID
         // manufacturer code. TODO: Expand this to support multiple
@@ -57,7 +57,7 @@ namespace NScumm.Scumm.Audio.IMuse
         internal protected SysExFunc Sysex { get; private set; }
 
         protected object _mutex = new object();
-    
+
         protected bool _paused;
         protected bool _initialized;
 
@@ -67,24 +67,24 @@ namespace NScumm.Scumm.Audio.IMuse
         // Limits how many simultaneous music tracks are played
         protected bool _recycle_players;
         // Can we stop a player in order to start another one?
-    
+
         protected uint _queue_end, _queue_pos, _queueSound;
         protected bool _queue_adding;
-    
+
         protected byte _queue_marker;
         protected bool _queue_cleared;
         protected byte _master_volume;
         // Master volume. 0-255
         protected byte _music_volume;
         // Global music volume. 0-255
-    
+
         protected ushort _trigger_count;
         /// <summary>
         // Sam & Max triggers
         /// </summary>
         internal protected ImTrigger[] _snm_triggers;
         private ushort _snm_trigger_index;
-    
+
         protected ushort[] _channel_volume;
         protected ushort[] _channel_volume_eff;
         protected ushort[] _volchan_table;
@@ -174,8 +174,8 @@ namespace NScumm.Scumm.Audio.IMuse
         {
             // Open MIDI driver
             var result = info.Driver.Open();
-//            if (result != MidiDriverError.None)
-//                Console.Error.WriteLine("IMuse initialization - {0}", MidiDriver.GetErrorName(result));
+            //            if (result != MidiDriverError.None)
+            //                Console.Error.WriteLine("IMuse initialization - {0}", MidiDriver.GetErrorName(result));
 
             // Connect to the driver's timer
             info.Driver.SetTimerCallback(info, MidiTimerCallback);
@@ -325,7 +325,7 @@ namespace NScumm.Scumm.Audio.IMuse
             if (System.Text.Encoding.UTF8.GetString(ptr, 4, 2) == "SO")
                 return false;
 
-//            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
+            //            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
 
             return false;
         }
@@ -364,7 +364,7 @@ namespace NScumm.Scumm.Audio.IMuse
             if (System.Text.Encoding.UTF8.GetString(ptr, 4, 2) == "SO")
                 return true;
 
-//            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
+            //            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
 
             return false;
         }
@@ -405,7 +405,7 @@ namespace NScumm.Scumm.Audio.IMuse
             if (System.Text.Encoding.UTF8.GetString(ptr, 4, 2) == "SO")
                 return true;
 
-//            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
+            //            Console.Error.WriteLine("Unknown music type: '{0}'", tag);
 
             return false;
         }
@@ -929,7 +929,7 @@ namespace NScumm.Scumm.Audio.IMuse
             {
                 if (player.IsActive)
                 {
-//                        scumm..getResourceAddress(rtSound, player.getID());
+                    //                        scumm..getResourceAddress(rtSound, player.getID());
                     player.FixAfterLoad();
                 }
             }
@@ -1042,8 +1042,8 @@ namespace NScumm.Scumm.Audio.IMuse
             }
         }
 
-        internal protected bool IsNativeMT32{ get { return _native_mt32; } }
-    
+        internal protected bool IsNativeMT32 { get { return _native_mt32; } }
+
         // Internal mutex-free versions of the IMuse and MusicEngine methods.
         protected bool StartSoundInternal(int sound, int offset = 0)
         {
@@ -1129,7 +1129,7 @@ namespace NScumm.Scumm.Audio.IMuse
             // workaround is to clear the trigger if the player listens to Rex or
             // Wally before tune 81 has finished on its own.
 
-            if (_game_id == GameId.SamNMax && sound == 82 && GetSoundStatusInternal(81, false) != 0)
+            if (_game_id == "samnmax" && sound == 82 && GetSoundStatusInternal(81, false) != 0)
                 ImClearTrigger(81, 1);
 
             player.Clear();
@@ -1177,7 +1177,7 @@ namespace NScumm.Scumm.Audio.IMuse
 
         protected int DoCommandInternal(int a, int b, int c, int d, int e, int f, int g, int h)
         {
-            var args = new int[8]{ a, b, c, d, e, f, g, h };
+            var args = new int[8] { a, b, c, d, e, f, g, h };
             return DoCommandInternal(8, args);
         }
 
@@ -1194,12 +1194,12 @@ namespace NScumm.Scumm.Audio.IMuse
             if (!_initialized && (cmd != 0 || param != 0))
                 return -1;
 
-//            {
-//                var str = string.Format("DoCommand - {0} ({1}/{2})", a[0], (int)param, (int)cmd);
-//                for (i = 1; i < numargs; ++i)
-//                    str += string.Format(", {0}", a[i]);
-//                Debug.WriteLine(str);
-//            }
+            //            {
+            //                var str = string.Format("DoCommand - {0} ({1}/{2})", a[0], (int)param, (int)cmd);
+            //                for (i = 1; i < numargs; ++i)
+            //                    str += string.Format(", {0}", a[i]);
+            //                Debug.WriteLine(str);
+            //            }
 
             if (param == 0)
             {
@@ -1225,7 +1225,7 @@ namespace NScumm.Scumm.Audio.IMuse
                     case 11:
                         return StopAllSoundsInternal();
                     case 12:
-                            // Sam & Max: Player-scope commands
+                        // Sam & Max: Player-scope commands
                         player = FindActivePlayer(a[1]);
                         if (player == null)
                             return -1;
@@ -1233,24 +1233,24 @@ namespace NScumm.Scumm.Audio.IMuse
                         switch (a[3])
                         {
                             case 6:
-                                    // Set player volume.
+                                // Set player volume.
                                 return player.SetVolume((byte)a[4]);
                             default:
-//                                Console.Error.WriteLine("IMuseInternal::DoCommand(12) unsupported sub-command {0}", a[3]);
+                                //                                Console.Error.WriteLine("IMuseInternal::DoCommand(12) unsupported sub-command {0}", a[3]);
                                 break;
                         }
                         return -1;
                     case 13:
                         return GetSoundStatusInternal(a[1], true);
                     case 14:
-                            // Sam and Max: Parameter fade
+                        // Sam and Max: Parameter fade
                         player = FindActivePlayer(a[1]);
                         if (player != null)
                             return player.AddParameterFader((ParameterFaderType)a[3], a[4], a[5]);
                         return -1;
 
                     case 15:
-                            // Sam & Max: Set hook for a "maybe" jump
+                        // Sam & Max: Set hook for a "maybe" jump
                         player = FindActivePlayer(a[1]);
                         if (player != null)
                         {
@@ -1262,7 +1262,7 @@ namespace NScumm.Scumm.Audio.IMuse
                         Debug.WriteLine("IMuse DoCommand(16) - SetVolChan ({0}, {1})", a[1], a[2]);
                         return SetVolchan(a[1], a[2]);
                     case 17:
-                        if (_game_id != GameId.SamNMax)
+                        if (_game_id != "samnmax")
                         {
                             Debug.WriteLine("IMuse DoCommand(17) - setChannelVolume ({0}, {1})", a[1], a[2]);
                             return SetChannelVolume((uint)a[1], (uint)a[2]);
@@ -1282,7 +1282,7 @@ namespace NScumm.Scumm.Audio.IMuse
                             }
                         }
                     case 18:
-                        if (_game_id != GameId.SamNMax)
+                        if (_game_id != "samnmax")
                         {
                             return SetVolchanEntry(a[1], (uint)a[2]);
                         }
@@ -1305,19 +1305,19 @@ namespace NScumm.Scumm.Audio.IMuse
                             return a[0];
                         }
                     case 19:
-                            // Sam & Max: ImClearTrigger
-                            // This should clear a trigger that's been set up
-                            // with ImSetTrigger(cmd == 17). Seems to work....
+                        // Sam & Max: ImClearTrigger
+                        // This should clear a trigger that's been set up
+                        // with ImSetTrigger(cmd == 17). Seems to work....
                         return ImClearTrigger(a[1], a[3]);
                     case 20:
-                            // Sam & Max: Deferred Command
+                        // Sam & Max: Deferred Command
                         AddDeferredCommand(a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
                         return 0;
                     case 2:
                     case 3:
                         return 0;
                     default:
-//                        Console.Error.WriteLine("DoCommand({0} [{1}/{2}], {3}, {4}, {5}, {6}, {7}, {8}, {9}) unsupported", a[0], param, cmd, a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
+                        //                        Console.Error.WriteLine("DoCommand({0} [{1}/{2}], {3}, {4}, {5}, {6}, {7}, {8}, {9}) unsupported", a[0], param, cmd, a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
                         break;
                 }
             }
@@ -1341,12 +1341,12 @@ namespace NScumm.Scumm.Audio.IMuse
                 switch (cmd)
                 {
                     case 0:
-                        if (_game_id == GameId.SamNMax)
+                        if (_game_id == "samnmax")
                         {
                             if (a[3] == 1) // Measure number
-                                        return (int)(((player.GetBeatIndex() - 1) >> 2) + 1);
+                                return (int)(((player.GetBeatIndex() - 1) >> 2) + 1);
                             else if (a[3] == 2) // Beat number
-                                        return (int)player.GetBeatIndex();
+                                return (int)player.GetBeatIndex();
                             return -1;
                         }
                         else
@@ -1354,7 +1354,7 @@ namespace NScumm.Scumm.Audio.IMuse
                             return player.GetParam(a[2], (byte)a[3]);
                         }
                     case 1:
-                        if (_game_id == GameId.SamNMax)
+                        if (_game_id == "samnmax")
                         {
                             // FIXME: Could someone verify this?
                             //
@@ -1397,21 +1397,21 @@ namespace NScumm.Scumm.Audio.IMuse
                         player.SetDetune(a[2]);
                         return 0;
                     case 6:
-                            // WORKAROUND for bug #1324106. When playing the
-                            // "flourishes" as Rapp's body appears from his ashes,
-                            // MI2 sets up triggers to pause the music, in case the
-                            // animation plays too slowly, and then the music is
-                            // manually unpaused for the next part of the music.
-                            //
-                            // In ScummVM, the animation finishes slightly too
-                            // quickly, and the pause command is run *after* the
-                            // unpause command. So we work around it by ignoring
-                            // all attempts at pausing this particular sound.
-                            //
-                            // I could have sworn this wasn't needed after the
-                            // recent timer change, but now it looks like it's
-                            // still needed after all.
-                        if (_game_id != GameId.Monkey2 || player.Id != 183 || a[2] != 0)
+                        // WORKAROUND for bug #1324106. When playing the
+                        // "flourishes" as Rapp's body appears from his ashes,
+                        // MI2 sets up triggers to pause the music, in case the
+                        // animation plays too slowly, and then the music is
+                        // manually unpaused for the next part of the music.
+                        //
+                        // In ScummVM, the animation finishes slightly too
+                        // quickly, and the pause command is run *after* the
+                        // unpause command. So we work around it by ignoring
+                        // all attempts at pausing this particular sound.
+                        //
+                        // I could have sworn this wasn't needed after the
+                        // recent timer change, but now it looks like it's
+                        // still needed after all.
+                        if (_game_id != "samnmax" || player.Id != 183 || a[2] != 0)
                         {
                             player.SetSpeed((byte)a[2]);
                         }
@@ -1426,7 +1426,7 @@ namespace NScumm.Scumm.Audio.IMuse
                         player.ClearLoop();
                         return 0;
                     case 11:
-                            // TODO: vs: check if it's correct...
+                        // TODO: vs: check if it's correct...
                         player.Part.SetOnOff(a[3] != 0);
                         return 0;
                     case 12:
@@ -1446,7 +1446,7 @@ namespace NScumm.Scumm.Audio.IMuse
                     case 21:
                         return -1;
                     case 22:
-                            // TODO: vs: check if it's correct
+                        // TODO: vs: check if it's correct
                         player.Part.Volume = a[3];
                         return 0;
                     case 23:
@@ -1454,14 +1454,14 @@ namespace NScumm.Scumm.Audio.IMuse
                     case 24:
                         return 0;
                     default:
-//                        Console.Error.WriteLine("DoCommand({0} [{1}/{2}], {3}, {4}, {5}, {6}, {7}, {8}, {9}) unsupported", a[0], param, cmd, a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
+                        //                        Console.Error.WriteLine("DoCommand({0} [{1}/{2}], {3}, {4}, {5}, {6}, {7}, {8}, {9}) unsupported", a[0], param, cmd, a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
                         return -1;
                 }
             }
 
             return -1;
         }
-    
+
         // IMuse interface
         public void Pause(bool paused)
         {
@@ -1498,7 +1498,7 @@ namespace NScumm.Scumm.Audio.IMuse
 
             lock (_mutex)
             {
-                var mainEntries = new []
+                var mainEntries = new[]
                 {
                     LoadAndSaveEntry.Create(r => _queue_end = r.ReadByte(), w => w.WriteByte((byte)_queue_end), 8),
                     LoadAndSaveEntry.Create(r => _queue_pos = r.ReadByte(), w => w.WriteByte((byte)_queue_pos), 8),
@@ -1542,27 +1542,27 @@ namespace NScumm.Scumm.Audio.IMuse
                 // VolumeFader has been replaced with the more generic ParameterFader.
                 // FIXME: replace this loop by something like
                 LoadAndSaveEntry.Create(r => r.ReadBytes(13 * 8), w => w.WriteBytes(new byte[13 * 8], 13 * 8), 8, 16).Execute(ser);
-//
-//            // Normally, we have to fix up the data structures after loading a
-//            // saved game. But there are cases where we don't. For instance, The
-//            // Macintosh version of Monkey Island 1 used to convert the Mac0 music
-//            // resources to General MIDI and play it through iMUSE as a rough
-//            // approximation. Now it has its own player, but old savegame still
-//            // have the iMUSE data in them. We have to skip that data, using a
-//            // dummy iMUSE object, but since the resource is no longer recognizable
-//            // to iMUSE, the fixup fails hard. So yes, this is a bit of a hack.
-//
-//            if (ser->isLoading() && fixAfterLoad) {
-//                // Load all sounds that we need
-//                fix_players_after_load(scumm);
-//                fix_parts_after_load();
-//                setImuseMasterVolume(_master_volume);
-//
-//                if (_midi_native)
-//                    reallocateMidiChannels(_midi_native);
-//                if (_midi_adlib)
-//                    reallocateMidiChannels(_midi_adlib);
-//            }
+                //
+                //            // Normally, we have to fix up the data structures after loading a
+                //            // saved game. But there are cases where we don't. For instance, The
+                //            // Macintosh version of Monkey Island 1 used to convert the Mac0 music
+                //            // resources to General MIDI and play it through iMUSE as a rough
+                //            // approximation. Now it has its own player, but old savegame still
+                //            // have the iMUSE data in them. We have to skip that data, using a
+                //            // dummy iMUSE object, but since the resource is no longer recognizable
+                //            // to iMUSE, the fixup fails hard. So yes, this is a bit of a hack.
+                //
+                //            if (ser->isLoading() && fixAfterLoad) {
+                //                // Load all sounds that we need
+                //                fix_players_after_load(scumm);
+                //                fix_parts_after_load();
+                //                setImuseMasterVolume(_master_volume);
+                //
+                //                if (_midi_native)
+                //                    reallocateMidiChannels(_midi_native);
+                //                if (_midi_adlib)
+                //                    reallocateMidiChannels(_midi_adlib);
+                //            }
             }
         }
 
@@ -1582,6 +1582,17 @@ namespace NScumm.Scumm.Audio.IMuse
             }
         }
 
+        public uint Property(ImuseProperty prop, string value)
+        {
+
+            switch (prop)
+            {
+                case ImuseProperty.GameId:
+                    _game_id = value;
+                    break;
+            }
+            return 0;
+        }
         public uint Property(ImuseProperty prop, uint value)
         {
             lock (_mutex)
@@ -1589,9 +1600,9 @@ namespace NScumm.Scumm.Audio.IMuse
                 switch (prop)
                 {
                     case ImuseProperty.TempoBase:
-                    // This is a specified as a percentage of normal
-                    // music speed. The number must be an integer
-                    // ranging from 50 to 200(for 50% to 200% normal speed).
+                        // This is a specified as a percentage of normal
+                        // music speed. The number must be an integer
+                        // ranging from 50 to 200(for 50% to 200% normal speed).
                         if (value >= 50 && value <= 200)
                             TempoFactor = (int)value;
                         break;
@@ -1606,7 +1617,7 @@ namespace NScumm.Scumm.Audio.IMuse
                     case ImuseProperty.Gs:
                         _enable_gs = (value > 0);
 
-                    // GS Mode emulates MT-32 on a GS device, so _native_mt32 should always be true
+                        // GS Mode emulates MT-32 on a GS device, so _native_mt32 should always be true
                         if (_midi_native != null && _enable_gs)
                         {
                             _native_mt32 = true;
@@ -1623,9 +1634,6 @@ namespace NScumm.Scumm.Audio.IMuse
                         _recycle_players = (value != 0);
                         break;
 
-                    case ImuseProperty.GameId:
-                        _game_id = (GameId)value;
-                        break;
 
                     case ImuseProperty.PcSpeaker:
                         PcSpeaker = (value != 0);
@@ -1653,7 +1661,7 @@ namespace NScumm.Scumm.Audio.IMuse
                 StartSoundInternal(sound, offset);
             }
         }
-    
+
         // MusicEngine interface
         public void SetMusicVolume(int vol)
         {
@@ -1723,7 +1731,7 @@ namespace NScumm.Scumm.Audio.IMuse
                 return best_time;
             }
         }
-    
+
         // Factory function
         public static IMuseInternal Create(MidiDriver nativeMidiDriver, MidiDriver adlibMidiDriver)
         {

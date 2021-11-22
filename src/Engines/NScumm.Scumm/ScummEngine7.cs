@@ -58,10 +58,10 @@ namespace NScumm.Scumm
         public ScummEngine7(GameSettings game, IGraphicsManager graphicsManager, IInputManager inputManager, IMixer mixer)
             : base(game, graphicsManager, inputManager, mixer)
         {
-            if (Game.GameId == GameId.Dig && (Game.Features.HasFlag(GameFeatures.Demo)))
+            if (Game.Id == "dig" && (Game.Features.HasFlag(GameFeatures.Demo)))
                 _smushFrameRate = 15;
             else
-                _smushFrameRate = (Game.GameId == GameId.FullThrottle) ? 10 : 12;
+                _smushFrameRate = (Game.Id == "ft") ? 10 : 12;
 
             for (int i = 0; i < _subtitleQueue.Length; i++)
             {
@@ -73,7 +73,7 @@ namespace NScumm.Scumm
             IMuseDigital.SetAudioNames(ResourceManager.AudioNames);
 
             // Create FT INSANE object
-            if (Game.GameId == GameId.FullThrottle)
+            if (Game.Id == "ft")
                 Insane = new Insane.Insane(this);
 
             SmushMixer = new SmushMixer(Mixer);
@@ -172,7 +172,7 @@ namespace NScumm.Scumm
             VariableFadeDelay = 117;
 
             // Full Throttle specific
-            if (Game.GameId == GameId.FullThrottle)
+            if (Game.Id == "ft")
             {
                 VariableCharsetMask = 119;
             }

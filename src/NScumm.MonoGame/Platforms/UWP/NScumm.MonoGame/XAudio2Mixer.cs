@@ -12,7 +12,7 @@ namespace NScumm.MonoGame
 {
     class XAudio2Mixer : IAudioOutput
     {
-        class XAudioBuffer: IDisposable
+        class XAudioBuffer : IDisposable
         {
             private readonly byte[] _samples;
             private readonly DataStream _dataStream;
@@ -36,12 +36,27 @@ namespace NScumm.MonoGame
                 _dataStream.Dispose();
             }
 
-            public void FillWith(IAudioSampleProvider audioSampleProvider)
+            public bool FillWith(IAudioSampleProvider audioSampleProvider)
             {
-                Array.Clear(_samples, 0, _samples.Length);
-                audioSampleProvider.Read(_samples, _samples.Length);
-                _dataStream.Position = 0;
-                _dataStream.Write(_samples, 0, _samples.Length);
+                try
+                {
+                    if (_dataStream != null && audioSampleProvider != null)
+                    {
+                        Array.Clear(_samples, 0, _samples.Length);
+                        audioSampleProvider?.Read(_samples, _samples.Length);
+                        _dataStream.Position = 0;
+                        _dataStream.Write(_samples, 0, _samples.Length);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+                return true;
             }
         }
         private const int NumBuffers = 8;
@@ -121,22 +136,45 @@ namespace NScumm.MonoGame
 
         private void OnAudioThread()
         {
-            while (!_quit)
+            try
             {
-                var state = _voice.State;
-                while (state.BuffersQueued < NumBuffers)
+                var state2 = true;
+                while (!_quit && state2)
                 {
-                    FillBuffer(_index);
-                    _index = ++_index % NumBuffers;
-                    state = _voice.State;
+                    var state = _voice.State;
+                    while (state2 && state.BuffersQueued < NumBuffers)
+                    {
+                        state2 = FillBuffer(_index);
+                        if (state2)
+                        {
+                            _index = ++_index % NumBuffers;
+                            state = _voice.State;
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
-        private void FillBuffer(int index)
+        private bool FillBuffer(int index)
         {
-            _buffers[index].FillWith(_audioSampleProvider);
-            _voice.SubmitSourceBuffer(_buffers[index].Buffer, null);
+            var state = true;
+            try
+            {
+                state = _buffers[index].FillWith(_audioSampleProvider);
+                if (state)
+                {
+                    _voice.SubmitSourceBuffer(_buffers[index].Buffer, null);
+                }
+            }
+            catch (Exception x)
+            {
+
+            }
+            return state;
         }
 
         private static WaveFormat ToWaveFormat(AudioFormat format)

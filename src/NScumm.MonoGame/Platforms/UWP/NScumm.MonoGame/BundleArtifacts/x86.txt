@@ -1,1 +1,1 @@
-MainPackage=B:\nscumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\x86\Release\NScumm.MonoGame_1.1.37.0_x86.appx
+MainPackage=B:\NScumm\NScumm.MonoGame\Platforms\UWP\NScumm.MonoGame\bin\x86\Debug .NET Native\NScumm.MonoGame_1.1.43.0_x86_Debug .NET Native.appx

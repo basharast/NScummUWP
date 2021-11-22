@@ -155,7 +155,7 @@ namespace NScumm.Scumm
         {
             CreateBoxMatrixCore();
 
-            if ((Game.GameId == GameId.Dig) || (Game.GameId == GameId.CurseOfMonkeyIsland))
+            if ((Game.Id == "dig") || (Game.Id == "comi"))
                 PutActors();
         }
 

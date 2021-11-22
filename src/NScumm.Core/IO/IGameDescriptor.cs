@@ -29,6 +29,9 @@ namespace NScumm.Core.IO
         Platform Platform { get; }
         int Width { get; }
         int Height { get; }
+
+        int Version { get; set; }
+
         PixelFormat PixelFormat { get; }
         string Path { get; }
     }

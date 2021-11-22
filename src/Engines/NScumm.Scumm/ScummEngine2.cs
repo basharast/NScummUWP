@@ -186,7 +186,7 @@ namespace NScumm.Scumm
             // This needs to be at least greater than 40 to get the more
             // elaborate version of the EGA Zak into. I don't know where
             // else it makes any difference.
-            if (Game.GameId == GameId.Zak)
+            if (Game.Id == "zak")
                 Variables[VariableMachineSpeed.Value] = 0x7FFF;
         }
 
@@ -914,7 +914,7 @@ namespace NScumm.Scumm
                 r = GetObjActToObjActDist(o1, o2);
 
             // TODO: WORKAROUND bug #795937 ?
-            //if ((_game.id == GID_MONKEY_EGA || _game.id == GID_PASS) && o1 == 1 && o2 == 307 && vm.slot[CurrentScript].number == 205 && r == 2)
+            //if ((_game.Id == GID_MONKEY_EGA || _game.Id == GID_PASS) && o1 == 1 && o2 == 307 && vm.slot[CurrentScript].number == 205 && r == 2)
             //    r = 3;
 
             SetResult(r);
@@ -1160,7 +1160,7 @@ namespace NScumm.Scumm
             var nr2 = GetVarOrDirectByte(OpCodeParameter.Param2);
             int dist = ReadByte();
 
-            if (Game.GameId == GameId.Indy4 && nr == 1 && nr2 == 106 &&
+            if (Game.Id == "atlantis" && nr == 1 && nr2 == 106 &&
                 dist == 255 && Slots[CurrentScript].Number == 210)
             {
                 // WORKAROUND bug: Work around an invalid actor bug when using the
@@ -1284,7 +1284,7 @@ namespace NScumm.Scumm
             // WORKAROUND bug #746349. This is a really odd bug in either the script
             // or in our script engine. Might be a good idea to investigate this
             // further by e.g. looking at the FOA engine a bit closer.
-            if (Game.GameId == GameId.Indy4 && _roomResource == 94 && Slots[CurrentScript].Number == 206 && !IsValidActor(index))
+            if (Game.Id == "atlantis" && _roomResource == 94 && Slots[CurrentScript].Number == 206 && !IsValidActor(index))
             {
                 SetResult(0);
                 return;
@@ -1453,7 +1453,7 @@ namespace NScumm.Scumm
             // Reset user state to values before cutscene
             SetUserState((UserStates)cutScene.Data[0].Data | UserStates.SetIFace | UserStates.SetCursor | UserStates.SetFreeze);
 
-            if ((Game.GameId == GameId.Maniac) /* && !(_game.platform == Common::kPlatformNES)*/)
+            if ((Game.Id == "maniac") /* && !(_game.platform == Common::kPlatformNES)*/)
             {
                 Camera.Mode = (CameraMode)cutScene.Data[3].Data;
                 if (Camera.Mode == CameraMode.FollowActor)
@@ -1509,7 +1509,7 @@ namespace NScumm.Scumm
                         /*if (_game.platform == Common::kPlatformNES)
                                     x += 8;
                                 else*/
-                        if ((Game.GameId == GameId.Maniac) && (Game.Version == 1))
+                        if ((Game.Id == "maniac") && (Game.Version == 1))
                             y += 8;
 
                         VerbSlot vs = Verbs[slot];
@@ -1521,13 +1521,13 @@ namespace NScumm.Scumm
                                 } else*/
                         if (Game.Version == 1)
                         {
-                            vs.Color = (byte)((Game.GameId == GameId.Maniac && (Game.Features.HasFlag(GameFeatures.Demo))) ? 16 : 5);
+                            vs.Color = (byte)((Game.Id == "maniac" && (Game.Features.HasFlag(GameFeatures.Demo))) ? 16 : 5);
                             vs.HiColor = 7;
                             vs.DimColor = 11;
                         }
                         else
                         {
-                            vs.Color = (byte)((Game.GameId == GameId.Maniac && (Game.Features.HasFlag(GameFeatures.Demo))) ? 13 : 2);
+                            vs.Color = (byte)((Game.Id == "maniac" && (Game.Features.HasFlag(GameFeatures.Demo))) ? 13 : 2);
                             vs.HiColor = 14;
                             vs.DimColor = 8;
                         }
@@ -1949,7 +1949,7 @@ namespace NScumm.Scumm
             var act = GetVarOrDirectByte(OpCodeParameter.Param1);
 
             // WORKAROUND bug #1252606
-            if (Game.GameId == GameId.Zak && Game.Version == 1 && Slots[CurrentScript].Number == 115 && act == 249)
+            if (Game.Id == "zak" && Game.Version == 1 && Slots[CurrentScript].Number == 115 && act == 249)
             {
                 act = Variables[VariableEgo.Value];
             }
@@ -2046,7 +2046,7 @@ namespace NScumm.Scumm
             a.Room = (byte)room;
             if (room == 0)
             {
-                if (Game.GameId == GameId.Maniac && Game.Version <= 1 /*&& Game.Platform != Platform.NES*/)
+                if (Game.Id == "maniac" && Game.Version <= 1 /*&& Game.Platform != Platform.NES*/)
                     a.Facing = 180;
 
                 a.PutActor(new Point(0, 0), 0);
@@ -2152,7 +2152,7 @@ namespace NScumm.Scumm
 
             if (c == 0)
             {
-                if (Game.GameId == GameId.Maniac && Game.Version == 1 /*&& !(Game.Platform == Platform.NES)*/)
+                if (Game.Id == "maniac" && Game.Version == 1 /*&& !(Game.Platform == Platform.NES)*/)
                 {
                     // Convert older light mode values into
                     // equivalent values of later games.
@@ -2179,7 +2179,7 @@ namespace NScumm.Scumm
 
         protected void StopScriptCommon(int script)
         {
-            if (Game.GameId == GameId.Maniac && _roomResource == 26 && Slots[CurrentScript].Number == 10001)
+            if (Game.Id == "maniac" && _roomResource == 26 && Slots[CurrentScript].Number == 10001)
             {
                 // FIXME: Nasty hack for bug #915575
                 // Don't let the exit script for room 26 stop the script (116), when
@@ -2241,7 +2241,7 @@ namespace NScumm.Scumm
                 // The enhanced version of Zak McKracken included in the
                 // SelectWare Classic Collection bundle used CD check instead
                 // of the usual key code check at airports.
-                if ((Game.GameId == GameId.Zak) && (script == 15) && (_roomResource == 45))
+                if ((Game.Id == "zak") && (script == 15) && (_roomResource == 45))
                     return;
             }
 
@@ -2277,7 +2277,7 @@ namespace NScumm.Scumm
             // imprisonment of the player), then any attempt to start script 87
             // (which makes Ted go answer the door bell) is simply ignored. This
             // way, the door bell still chimes, but Ted ignores it.
-            if (Game.GameId == GameId.Maniac)
+            if (Game.Id == "maniac")
             {
                 if (Game.Version >= 1 && script == 87)
                 {
@@ -2492,7 +2492,7 @@ namespace NScumm.Scumm
 
                 //                 For V1 games, the engine must compute the preposition.
                 //                 In all other Scumm versions, this is done by the sentence script.
-                if ((Game.GameId == GameId.Maniac && Game.Version == 1 /*&& !(Game.Platform == Platform.NES)*/) && (Variables[VariableSentencePreposition.Value] == 0))
+                if ((Game.Id == "maniac" && Game.Version == 1 /*&& !(Game.Platform == Platform.NES)*/) && (Variables[VariableSentencePreposition.Value] == 0))
                 {
                     if (Verbs[slot].Prep == 0xFF)
                     {
@@ -2648,7 +2648,7 @@ namespace NScumm.Scumm
                     a.SetActorCostume((ushort)arg);
                     break;
                 case 5:     // SO_TALK_COLOR
-                    if (Game.GameId == GameId.Maniac && Game.Version == 2 && Game.Features.HasFlag(GameFeatures.Demo) && arg == 1)
+                    if (Game.Id == "maniac" && Game.Version == 2 && Game.Features.HasFlag(GameFeatures.Demo) && arg == 1)
                         a.TalkColor = 15;
                     else
                         a.TalkColor = (byte)arg;
@@ -2769,7 +2769,7 @@ namespace NScumm.Scumm
                 return;
 
             // HACK V2 Maniac Mansion tries to load an invalid sound resource in demo script.
-            if (Game.GameId == GameId.Maniac && Game.Version == 2 && Slots[CurrentScript].Number == 9 && type == ResType.Sound && resid == 1)
+            if (Game.Id == "maniac" && Game.Version == 2 && Slots[CurrentScript].Number == 9 && type == ResType.Sound && resid == 1)
                 return;
 
             if ((opcode & 0x0f) == 1)
@@ -2901,7 +2901,7 @@ namespace NScumm.Scumm
             var x = GetVarOrDirectByte(OpCodeParameter.Param2);
             var y = GetVarOrDirectByte(OpCodeParameter.Param3);
 
-            if (Game.GameId == GameId.Maniac && Game.Version <= 1 /*&& Game.Platform != Platform.NES*/)
+            if (Game.Id == "maniac" && Game.Version <= 1 /*&& Game.Platform != Platform.NES*/)
                 a.Facing = 180;
 
             a.PutActor(new Point(x, y));
@@ -2948,7 +2948,7 @@ namespace NScumm.Scumm
             String[textSlot].Center = false;
             String[textSlot].Overhead = false;
 
-            if (Game.GameId == GameId.Maniac && _actorToPrintStrFor == 0xFF)
+            if (Game.Id == "maniac" && _actorToPrintStrFor == 0xFF)
             {
                 if (Game.Version == 0)
                 {
@@ -2975,7 +2975,7 @@ namespace NScumm.Scumm
             // The original interpreter sets the actors new room X/Y to the last rooms X/Y
             // This fixes a problem with MM: script 161 in room 12, the 'Oomph!' script
             // This scripts runs before the actor position is set to the correct room entry location
-            if ((Game.GameId == GameId.Maniac) /*&& (Game.Platform != Platform.NES)*/)
+            if ((Game.Id == "maniac") /*&& (Game.Platform != Platform.NES)*/)
             {
                 a.PutActor(a.Position, room);
             }

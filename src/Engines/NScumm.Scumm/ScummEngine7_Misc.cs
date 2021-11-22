@@ -58,22 +58,22 @@ namespace NScumm.Scumm
 						var videoname = GetStringAddressVar (VariableVideoName).GetText ();
                             // TODO: vs
                             // Correct incorrect smush filename in Macintosh FT demo
-//                            if ((_game.id == GID_FT) && (_game.features & GF_DEMO) && (_game.platform == Common::kPlatformMacintosh) &&
+//                            if ((_game.Id == GID_FT) && (_game.features & GF_DEMO) && (_game.platform == Common::kPlatformMacintosh) &&
 //                                (!strcmp(videoname, "jumpgorge.san")))
 //                                _splayer.play("jumpgorg.san", _smushFrameRate);
                             // WORKAROUND: A faster frame rate is required, to keep audio/video in sync in this video
 //                            else 
-                            if (Game.GameId == GameId.Dig && videoname == "sq3.san")
+                            if (Game.Id == "dig" && videoname == "sq3.san")
                                 SmushPlayer.Play(videoname, 14);
                             else
                                 SmushPlayer.Play(videoname, _smushFrameRate);
 
-                            if (Game.GameId == GameId.Dig)
+                            if (Game.Id == "dig")
                             {
                                 _disableFadeInEffect = true;
                             }
                         }
-                        else if (Game.GameId == GameId.FullThrottle && !_skipVideo)
+                        else if (Game.Id == "ft" && !_skipVideo)
                         {
                             var insaneVarNum = (Game.Features.HasFlag(GameFeatures.Demo)/* && (Game.Platform == Common::kPlatformDOS)*/)
                                 ? (uint)232 : 233;
@@ -136,7 +136,7 @@ namespace NScumm.Scumm
             {
                 IMuseDigital.FlushTracks();
                 // In CoMI and the Dig the full (non-demo) version invoke IMuseDigital::refreshScripts
-                if ((Game.GameId == GameId.Dig || Game.GameId == GameId.CurseOfMonkeyIsland) && !(Game.Features.HasFlag(GameFeatures.Demo)))
+                if ((Game.Id == "dig" || Game.Id == "comi") && !(Game.Features.HasFlag(GameFeatures.Demo)))
                     IMuseDigital.RefreshScripts();
             }
             if (SmushMixer != null)
@@ -163,7 +163,7 @@ namespace NScumm.Scumm
                 // Skip cutscene (or active SMUSH video).
                 if (SmushActive)
                 {
-                    if (Game.GameId == GameId.FullThrottle)
+                    if (Game.Id == "ft")
                     {
                         Insane.EscapeKeyHandler();
                     }
@@ -193,7 +193,7 @@ namespace NScumm.Scumm
 
         protected override void Charset()
         {
-            if (Game.GameId == GameId.FullThrottle)
+            if (Game.Id == "ft")
             {
                 base.Charset();
                 return;
@@ -398,7 +398,7 @@ namespace NScumm.Scumm
             // Play associated speech, if any
             PlaySpeech(_lastStringTag);
 
-            if (Game.GameId == GameId.Dig || Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (Game.Id == "dig" || Game.Id == "comi")
             {
                 if (Variables[VariableHaveMessage.Value] != 0)
                     StopTalk();
@@ -427,16 +427,16 @@ namespace NScumm.Scumm
             _charsetBufPos = 0;
             _talkDelay = 0;
             _haveMsg = 1;
-            if (Game.GameId == GameId.FullThrottle)
+            if (Game.Id == "ft")
                 Variables[VariableHaveMessage.Value] = 0xFF;
-            _haveActorSpeechMsg = (Game.GameId == GameId.FullThrottle) ? true : (!Sound.IsSoundRunning(Sound.TalkSoundID));
-            if (Game.GameId == GameId.Dig || Game.GameId == GameId.CurseOfMonkeyIsland)
+            _haveActorSpeechMsg = (Game.Id == "ft") ? true : (!Sound.IsSoundRunning(Sound.TalkSoundID));
+            if (Game.Id == "dig" || Game.Id == "comi")
             {
                 stringWrap = String[0].Wrapping;
                 String[0].Wrapping = true;
             }
             Charset();
-            if (Game.GameId == GameId.Dig || Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (Game.Id == "dig" || Game.Id == "comi")
             {
                 if (Game.Version == 8)
                     Variables[VariableHaveMessage.Value] = (String[0].NoTalkAnim) ? 2 : 1;
@@ -872,10 +872,10 @@ namespace NScumm.Scumm
 
         void PlaySpeech(byte[] ptr)
         {
-            if (Game.GameId == GameId.Dig && /*(ConfMan.getBool("speech_mute") ||*/ Variables[VariableVoiceMode.Value] == 2)
+            if (Game.Id == "dig" && /*(ConfMan.getBool("speech_mute") ||*/ Variables[VariableVoiceMode.Value] == 2)
                 return;
 
-            if ((Game.GameId == GameId.Dig || Game.GameId == GameId.CurseOfMonkeyIsland) && ptr[0] != 0)
+            if ((Game.Id == "dig" || Game.Id == "comi") && ptr[0] != 0)
             {
                 var count = Array.IndexOf(ptr, (byte)0);
                 if (count < 0)
@@ -883,7 +883,7 @@ namespace NScumm.Scumm
 				var pointer = ptr.GetText(0, count);
 
                 // Play speech
-                if (!Game.Features.HasFlag(GameFeatures.Demo) && Game.GameId == GameId.CurseOfMonkeyIsland) // CMI demo does not have .IMX for voice
+                if (!Game.Features.HasFlag(GameFeatures.Demo) && Game.Id == "comi") // CMI demo does not have .IMX for voice
                     pointer += ".IMX";
 
                 Sound.StopTalkSound();

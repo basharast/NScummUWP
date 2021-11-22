@@ -229,7 +229,7 @@ namespace NScumm.Dump
 
         Statement Wait()
         {
-            if (Game.GameId == GameId.Indy3)
+            if (Game.Id == "indy3")
             {
                 _opCode = 2;
             }
@@ -259,7 +259,7 @@ namespace NScumm.Dump
 
         Statement WaitForActor()
         {
-            if (Game.GameId == GameId.Indy3)
+            if (Game.Id == "indy3")
             {
                 var actor = GetVarOrDirectByte(OpCodeParameter.Param1);
                 return new MethodInvocation("WaitForActor").AddArgument(actor).ToStatement();

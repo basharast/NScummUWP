@@ -111,7 +111,7 @@ namespace NScumm.Scumm
                 // update IQ points after loading
                 if (_saveLoadFlag == 2)
                 {
-                    if (_game.GameId == Scumm.IO.GameId.Indy4)
+                    if (_game.Id == "atlantis")
                         RunScript(145, false, false, new int[0]);
                 }
 
@@ -779,7 +779,7 @@ namespace NScumm.Scumm
             }
 
             // Indy4 Amiga specific palette tables were not saved before V85
-            //if (_game.platform == Common::kPlatformAmiga && _game.id == GID_INDY4) {
+            //if (_game.platform == Common::kPlatformAmiga && _game.Id == GID_INDY4) {
             //    if (s->getVersion() >= 85) {
             //        s->saveLoadArrayOf(_roomPalette, 256, 1, sleByte);
             //        s->saveLoadArrayOf(_verbPalette, 256, 1, sleByte);
@@ -840,11 +840,11 @@ namespace NScumm.Scumm
             };
             variablesEntries.ForEach(entry => entry.Execute(serializer));
 
-            if (_game.GameId == GameId.Tentacle) // Maybe misplaced, but that's the main idea
+            if (_game.Id == "tentacle") // Maybe misplaced, but that's the main idea
             {
                 _variables[120] = var120Backup;
             }
-            if (_game.GameId == GameId.Indy4)
+            if (_game.Id == "atlantis")
             {
                 _variables[98] = var98Backup;
             }

@@ -56,6 +56,7 @@ namespace NScumm.MonoGame
             this.info = info;
         }
 
+        public bool engineFaildToStart = true;
         public override void LoadContent()
         {
             if (!contentLoaded)
@@ -76,14 +77,39 @@ namespace NScumm.MonoGame
                 audioDriver.Play();
 
                 //init engines
-                engine = info.MetaEngine.Create(info, gfx, inputManager, audioDriver, saveFileManager);
-                engine.ShowMenuDialogRequested += OnShowMenuDialogRequested;
-                game.Services.AddService(engine);
-
-                Task.Factory.StartNew(() =>
+                for (var i = 0; i < 9; i++)
                 {
-                    UpdateGame();
-                });
+                    try
+                    {
+                        engine = info.MetaEngine.Create(info, gfx, inputManager, audioDriver, saveFileManager);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        engineFaildToStart = true;
+                        break;
+                        //Is it a good idea to test other version if the current faild?
+                        /*info.Game.Version = i;
+                        if (i == 8)
+                        {
+                            engineFaildToStart = true;
+                        }*/
+                    }
+                }
+                if (!engineFaildToStart)
+                {
+                    engine.ShowMenuDialogRequested += OnShowMenuDialogRequested;
+                    game.Services.AddService(engine);
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        UpdateGame();
+                    });
+                }
+                else
+                {
+                    GamePage.ShowTileHandler.Invoke(new string[] { "Failed State", "Start failed!", $"Failed to start the game", "Engine cannot start" }, EventArgs.Empty);
+                }
                 //callGCTimer(true);
             }
         }
@@ -127,6 +153,10 @@ namespace NScumm.MonoGame
         }
         public override void Draw(GameTime gameTime)
         {
+            if (engineFaildToStart)
+            {
+                return;
+            }
             spriteBatch.Begin();
             gfx.DrawScreen(spriteBatch);
             gfx.DrawCursor(spriteBatch, cursorPos);

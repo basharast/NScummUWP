@@ -24,6 +24,9 @@
             <AppBarButton Icon="Help"  Label="Help" Click="AppBarButton_Click"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Icon="OpenFile" Label="Import Database" x:Name="ImportDataBase" Click="ImportDataBase_Click"></AppBarButton>
+                <AppBarButton Icon="Switch" Label="Unset Database" x:Name="UnsetDatabase" Click="UnsetDatabase_Click"></AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarButton Icon="Delete" Label="Clear List" x:Name="ClearList" Click="ImportDataBase_Click_1"></AppBarButton>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
@@ -45,7 +48,8 @@
         <!-- Status -->
         <StackPanel Grid.Row="1" x:Name="ProgressPanel" Orientation="Vertical" Margin="4" Visibility="Collapsed">
             <ProgressBar IsIndeterminate="True" />
-            <TextBlock x:Uid="ScanningGamesTextBlock" Text="Scanning games..." />
+            <TextBlock x:Name="ScanningGamesTextBlock" x:Uid="ScanningGamesTextBlock" Text="Scanning games..." />
+            <ProgressBar x:Name="ScanningGamesTextBlockProgress"/>
         </StackPanel>
         <!-- Game list -->
         <ListView Grid.Row="2" x:Name="GameListBox" ItemClick="OnLaunchGame" IsItemClickEnabled="True" 

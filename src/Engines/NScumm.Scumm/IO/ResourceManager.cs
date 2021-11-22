@@ -265,7 +265,7 @@ namespace NScumm.Scumm.IO
                         // For games using AD except Indy3 and Loom we are using our iMuse
                         // implementation. See output initialization in
                         // ScummEngine::setupMusic for more information.
-                        if (data != null && Game.Version < 5 && Game.GameId != GameId.Indy3 && Game.GameId != GameId.Loom && music == MusicDriverTypes.AdLib)
+                        if (data != null && Game.Version < 5 && Game.Id != "indy3" && Game.Id != "loom" && music == MusicDriverTypes.AdLib)
                         {
                             data = ConvertADResource(data, id);
                         }
@@ -848,12 +848,12 @@ namespace NScumm.Scumm.IO
                 // Convert the ticks into a MIDI tempo.
                 // Unfortunate LOOM and INDY3 have different interpretation
                 // of the ticks value.
-                if (Game.GameId == GameId.Indy3)
+                if (Game.Id == "indy3")
                 {
                     // Note: since we fix ppqn at 480, ppqn/473 is almost 1
                     dw = 500000 * 256 / 473 * ppqn / ticks;
                 }
-                else if (Game.GameId == GameId.Loom && Game.Version == 3)
+                else if (Game.Id == "loom" && Game.Version == 3)
                 {
                     dw = 500000 * ppqn / 4 / ticks;
                 }

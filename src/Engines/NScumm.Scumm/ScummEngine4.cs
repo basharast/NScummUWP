@@ -47,7 +47,7 @@ namespace NScumm.Scumm
             VariableUserPut = 53;
             VariableTalkStringY = 54;
 
-            if ((Game.GameId == GameId.Loom && Game.Version == 4) || Game.Version >= 5)
+            if ((Game.Id == "loom" && Game.Version == 4) || Game.Version >= 5)
             {
                 VariableNoSubtitles = 60;
             }

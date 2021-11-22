@@ -91,7 +91,7 @@ namespace NScumm.Scumm
             VariableTimeDateMinute = 126;
 
             // Sam & Max specific
-            if (Game.GameId == GameId.SamNMax)
+            if (Game.Id == "samnmax")
             {
                 VariableV6SoundMode = 9;
                 VariableCharsetMask = 123;

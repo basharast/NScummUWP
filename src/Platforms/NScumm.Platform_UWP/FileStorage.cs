@@ -85,6 +85,16 @@ namespace NScumm
             string signature;
             using (var md5 = MD5.Create())
             {
+                using (var stream = OpenFileRead(path))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    signature = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
+
+            //Some wrong results caused to disable the below code and replaced with the above one
+            /*using (var md5 = MD5.Create())
+            {
                 using (var file = OpenFileRead(path))
                 {
                     var br = new BinaryReader(file);
@@ -97,7 +107,7 @@ namespace NScumm
                     }
                     signature = md5Text.ToString();
                 }
-            }
+            }*/
             return signature;
         }
 
@@ -106,8 +116,62 @@ namespace NScumm
             return XDocument.Load(stream);
         }
 
-        public Stream OpenContent(string path)
+        public string ReadContent(string path, bool localState = false)
         {
+            string fileContent = "";
+            if (localState)
+            {
+                try
+                {
+                    var localLocation = (StorageFile)ApplicationData.Current.LocalFolder.TryGetItemAsync(path).AsTask().ConfigureAwait(false).GetAwaiter().GetResult();
+                    if (localLocation != null)
+                    {
+                        fileContent = FileIO.ReadTextAsync(localLocation).AsTask().ConfigureAwait(false).GetAwaiter().GetResult();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            else
+            {
+                try
+                {
+                    var installedLocation = (StorageFile)Windows.ApplicationModel.Package.Current.InstalledLocation.TryGetItemAsync(path).AsTask().ConfigureAwait(false).GetAwaiter().GetResult();
+                    if (installedLocation != null)
+                    {
+                        fileContent = FileIO.ReadTextAsync(installedLocation).AsTask().ConfigureAwait(false).GetAwaiter().GetResult();
+                    }
+                }
+                catch (Exception ex)
+                {
+                   
+                }
+            }
+            return fileContent;
+        }
+        public Stream OpenContent(string path, bool localState = false)
+        {
+            if (localState)
+            {
+                try
+                {
+                    var localLocation = (StorageFile)ApplicationData.Current.LocalFolder.TryGetItemAsync(path).AsTask().ConfigureAwait(false).GetAwaiter().GetResult();
+                    if (localLocation != null)
+                    {
+                        return OpenFileRead(localLocation.Path);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
             var installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var fullPath = ScummHelper.LocatePath(installedLocation.Path, path);
             return OpenFileRead(fullPath);

@@ -64,7 +64,7 @@ namespace NScumm.Scumm
                 else
                 {
                     SetPalette(Palette.V1);
-                    if (Game.GameId == GameId.Zak)
+                    if (Game.Id == "zak")
                         SetPalColor(15, 170, 170, 170);
                 }
             }
@@ -89,9 +89,9 @@ namespace NScumm.Scumm
             }
             else if (Game.Platform == Platform.FMTowns)
             {
-                if (Game.GameId == GameId.Indy4 || Game.GameId == GameId.Monkey2)
+                if (Game.Id == "atlantis" || Game.Id == "monkey2")
                     _townsClearLayerFlag = 0;
-                else if (Game.GameId == GameId.Loom)
+                else if (Game.Id == "loom")
                     TownsSetTextPalette(Palette.TownsLoom);
                 else if (Game.Version == 3)
                     TownsSetTextPalette(Palette.Towns3);
@@ -330,7 +330,7 @@ namespace NScumm.Scumm
             // from within Room 23 (the big machine), as it has no shadow effects
             // and thus doesn't result in any visual differences.
 
-            if (Game.GameId == Scumm.IO.GameId.SamNMax)
+            if (Game.Id == "samnmax")
             {
                 for (var i = 0; i < 256; i++)
                     _shadowPalette[i] = (byte)i;

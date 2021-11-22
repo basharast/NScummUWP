@@ -61,7 +61,7 @@ namespace NScumm.Scumm
                 // update IQ points after loading
                 if (_saveLoadFlag == 2)
                 {
-                    if (Game.GameId == GameId.Indy4)
+                    if (Game.Id == "atlantis")
                         RunScript(145, false, false, new int[0]);
                 }
 
@@ -106,7 +106,7 @@ namespace NScumm.Scumm
                         if (a == StringIdIqSeries && b == StringIdIqSeries)
                         {
                             // Zak256 loads the IQ script-slot but does not use it -> ignore it
-                            if (Game.GameId == GameId.Indy3)
+                            if (Game.Id == "indy3")
                             {
                                 var ptr = _strings[StringIdIqSeries];
                                 if (ptr != null)
@@ -193,7 +193,7 @@ namespace NScumm.Scumm
 
                         if (a == StringIdIqEpisode && b == StringIdIqEpisode)
                         {
-                            if (Game.GameId == GameId.Indy3)
+                            if (Game.Id == "indy3")
                             {
                                 SaveIQPoints();
                             }

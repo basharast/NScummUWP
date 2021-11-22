@@ -67,7 +67,7 @@ namespace NScumm.Scumm.IO
                             ReadDirectoryOfObjects(br);
 
                             // Indy3 FM-TOWNS has 32 extra bytes of unknown meaning
-                            if (Game.GameId == GameId.Indy3 && Game.Platform == Platform.FMTowns)
+                            if (Game.Id == "indy3" && Game.Platform == Platform.FMTowns)
                                 br.BaseStream.Seek(32, SeekOrigin.Current);
                             break;
                         default:

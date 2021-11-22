@@ -213,7 +213,7 @@ namespace NScumm.Scumm
         {
             SetupSfxFile();
 
-            if (vm.Game.GameId == GameId.FullThrottle)
+            if (vm.Game.Id == "ft")
             {
                 vm.Variables[vm.VariableVoiceBundleLoaded.Value] = string.IsNullOrEmpty(_sfxFilename) ? 0 : 1;
             }
@@ -459,7 +459,7 @@ namespace NScumm.Scumm
             if (res == null)
                 return;
 
-            if (vm.Game.GameId == GameId.Monkey1)
+            if (vm.Game.Id == "monkey")
             {
                 // Works around the fact that in some places in MonkeyEGA/VGA,
                 // the music is never explicitly stopped.
@@ -521,12 +521,12 @@ namespace NScumm.Scumm
             SoundHandle handle = new SoundHandle();
             var id = -1;
 
-            if (vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (vm.Game.Id == "comi")
             {
                 sfxMode |= mode;
                 return handle;
             }
-            else if (vm.Game.GameId == GameId.Dig)
+            else if (vm.Game.Id == "dig")
             {
                 sfxMode |= mode;
                 if (!(vm.Game.Features.HasFlag(GameFeatures.Demo)))
@@ -544,7 +544,7 @@ namespace NScumm.Scumm
                 // Some games frequently assume that starting one sound effect will
                 // automatically stop any other that may be playing at that time. So
                 // that is what we do here, but we make an exception for speech.
-                if (mode == 1 && (vm.Game.GameId == GameId.Tentacle || vm.Game.GameId == GameId.SamNMax))
+                if (mode == 1 && (vm.Game.Id == "tentacle" || vm.Game.Id == "samnmax"))
                 {
                     id = 777777 + _talkSoundChannel;
                     _mixer.StopID(id);

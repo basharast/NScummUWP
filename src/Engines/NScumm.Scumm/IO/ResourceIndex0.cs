@@ -46,7 +46,7 @@ namespace NScumm.Scumm.IO
             int numScripts;
             int numSounds;
 
-            if (game.GameId == GameId.Maniac)
+            if (Game.Id == "maniac")
             {
                 numGlobalObjects = 256;
                 numRooms = 55;

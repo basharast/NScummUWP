@@ -40,7 +40,7 @@ namespace NScumm.Scumm.Audio.Players
 
             Debug.Assert(scumm != null);
             Debug.Assert(mixer != null);
-            Debug.Assert(_vm.Game.GameId == GameId.Monkey1);
+            Debug.Assert(_vm.Game.Id == "monkey");
             _tfmxMusic.SetSignalAction((num, value) =>
                 {
                     if (num == 0)
@@ -191,7 +191,7 @@ namespace NScumm.Scumm.Audio.Players
 
         void Init()
         {
-            if (_vm.Game.GameId != GameId.Monkey1)
+            if (_vm.Game.Id != "monkey")
                 Debug.WriteLine("player_v4a - unknown game");
 
             var directory = ServiceLocator.FileStorage.GetDirectoryName(_vm.Game.Path);

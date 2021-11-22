@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{C4D4E059
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NScumm.Dump", "Tools\NScumm.Dump\NScumm.Dump.csproj", "{D53EB07B-F186-4281-A225-2C3DC5850148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NScumm.Unsafe", "NScumm.Unsafe\NScumm.Unsafe.csproj", "{0D8D76F1-1383-437C-9482-BBD3C9723768}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug .NET Native|Any CPU = Debug .NET Native|Any CPU
@@ -272,30 +270,6 @@ Global
 		{D53EB07B-F186-4281-A225-2C3DC5850148}.Release|x64.Build.0 = Release|Any CPU
 		{D53EB07B-F186-4281-A225-2C3DC5850148}.Release|x86.ActiveCfg = Release|Any CPU
 		{D53EB07B-F186-4281-A225-2C3DC5850148}.Release|x86.Build.0 = Release|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|Any CPU.Build.0 = Debug|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|ARM.ActiveCfg = Debug|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|ARM.Build.0 = Debug|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|x64.ActiveCfg = Debug|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|x64.Build.0 = Debug|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|x86.ActiveCfg = Debug|x86
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug .NET Native|x86.Build.0 = Debug|x86
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|ARM.ActiveCfg = Debug|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|ARM.Build.0 = Debug|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|x64.ActiveCfg = Debug|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|x64.Build.0 = Debug|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|x86.ActiveCfg = Debug|x86
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Debug|x86.Build.0 = Debug|x86
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|ARM.ActiveCfg = Release|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|ARM.Build.0 = Release|ARM
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|x64.ActiveCfg = Release|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|x64.Build.0 = Release|x64
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|x86.ActiveCfg = Release|x86
-		{0D8D76F1-1383-437C-9482-BBD3C9723768}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

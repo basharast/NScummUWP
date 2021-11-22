@@ -10,9 +10,8 @@ namespace NScumm.Scumm.IO
     public class ScummMetaEngine : IMetaEngine
     {
         private readonly GameManager _gm;
-
-        public ScummMetaEngine()
-            : this(ServiceLocator.FileStorage.OpenContent("Nscumm.xml"))
+        bool isCustomDatabaseSet = false;
+        public ScummMetaEngine() : this(ServiceLocator.FileStorage.OpenContent("Nscumm.xml"))
         {
         }
 

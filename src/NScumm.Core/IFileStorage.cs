@@ -60,7 +60,9 @@ namespace NScumm.Core
 
         string GetSignature(string path);
 
-        Stream OpenContent(string path);
+        Stream OpenContent(string path, bool localState = false);
+
+        string ReadContent(string path, bool localState = false);
 
         // warning: don't remove this or you will have a TypeInitializationException
         XDocument LoadDocument(Stream stream);

@@ -344,7 +344,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
 
             sound.Bundle = new BundleMgr(_cacheBundleDir);
 
-            if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (_vm.Game.Id == "comi")
             {
                 if (_vm.Game.Features.HasFlag(GameFeatures.Demo))
                 {
@@ -369,7 +369,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                     _disk = (byte)_vm.Variables[_vm.VariableCurrentDisk.Value];
                 }
             }
-            else if (_vm.Game.GameId == GameId.Dig)
+            else if (_vm.Game.Id == "dig")
                 result = sound.Bundle.Open("digmusic.bun", ref sound.Compressed);
             else
                 throw new InvalidOperationException("openMusicBundle() Don't know which bundle file to load");
@@ -385,7 +385,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
 
             sound.Bundle = new BundleMgr(_cacheBundleDir);
 
-            if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (_vm.Game.Id == "comi")
             {
                 if (_vm.Game.Features.HasFlag(GameFeatures.Demo))
                 {
@@ -410,7 +410,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                     _disk = (byte)_vm.Variables[_vm.VariableCurrentDisk.Value];
                 }
             }
-            else if (_vm.Game.GameId == GameId.Dig)
+            else if (_vm.Game.Id == "dig")
                 result = sound.Bundle.Open("digvoice.bun", ref sound.Compressed);
             else
                 throw new InvalidOperationException("openVoiceBundle() Don't know which bundle file to load");
@@ -431,7 +431,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                 throw new InvalidOperationException("openSound() can't alloc free sound slot");
             }
 
-            bool header_outside = ((_vm.Game.GameId == GameId.CurseOfMonkeyIsland) && !(_vm.Game.Features.HasFlag(GameFeatures.Demo)));
+            bool header_outside = ((_vm.Game.Id == "comi") && !(_vm.Game.Features.HasFlag(GameFeatures.Demo)));
             bool result = false;
             byte[] ptr = null;
 
@@ -721,7 +721,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
             }
 
             int header_size = soundDesc.OffsetData;
-            bool header_outside = ((_vm.Game.GameId == GameId.CurseOfMonkeyIsland) && !(_vm.Game.Features.HasFlag(GameFeatures.Demo)));
+            bool header_outside = ((_vm.Game.Id == "comi") && !(_vm.Game.Features.HasFlag(GameFeatures.Demo)));
             if ((soundDesc.Bundle != null) && (!soundDesc.Compressed))
             {
                 size = soundDesc.Bundle.DecompressSampleByCurIndex(start + offset, size, out buf, header_size, header_outside);

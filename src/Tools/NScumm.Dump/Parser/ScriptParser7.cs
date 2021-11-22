@@ -130,7 +130,7 @@ namespace NScumm.Dump
                 { 136, "VariableVoiceBundleLoaded" },
             };
 
-            if (game.GameId == GameId.FullThrottle)
+            if (game.Id == "ft")
             {
                 KnownVariables.Add(119, "VariableCharsetMask");
             }

@@ -95,7 +95,7 @@ namespace NScumm.Scumm
             int height = rect.Height;
             int width = rect.Width;
 
-            if (_game.Platform == Platform.FMTowns && Game.GameId == GameId.Monkey1 && vs == VerbVirtScreen && rect.Bottom <= 154)
+            if (_game.Platform == Platform.FMTowns && Game.Id == "monkey" && vs == VerbVirtScreen && rect.Bottom <= 154)
                 rect.Right = 319;
 
             MarkRectAsDirty(vs, rect.Left, rect.Right, rect.Top, rect.Bottom, Gdi.UsageBitRestored);
@@ -378,7 +378,7 @@ namespace NScumm.Scumm
             // is definitely not capable of passing a parameter of -1 (color range is 0 - 255).
             // Just to make sure I don't break anything I restrict the code change to FM-Towns
             // version 5 games where this change is necessary to fix certain long standing bugs.
-            if (color == -1 || (color >= 254 && Game.Platform == Platform.FMTowns && (Game.GameId == GameId.Monkey2 || Game.GameId == GameId.Indy4)))
+            if (color == -1 || (color >= 254 && Game.Platform == Platform.FMTowns && (Game.Id == "monkey2" || Game.Id == "atlantis")))
             {
                 if (_game.Platform == Platform.FMTowns)
                 {
@@ -417,8 +417,8 @@ namespace NScumm.Scumm
                         mask.GoTo(x * _textSurfaceMultiplier, (y - ScreenTop + vs.TopLine) * _textSurfaceMultiplier);
                         Gdi.Fill(mask, (byte)color, width * _textSurfaceMultiplier, height * _textSurfaceMultiplier);
 
-                        if (Game.GameId == GameId.Monkey2 || Game.GameId == GameId.Indy4 || ((Game.GameId == GameId.Indy3 || Game.GameId == GameId.Zak)
-                            && vs != TextVirtScreen) || (_game.GameId == GameId.Loom && vs == MainVirtScreen))
+                        if (Game.Id == "monkey2" || Game.Id == "atlantis" || ((Game.Id == "indy3" || Game.Id == "zak")
+                            && vs != TextVirtScreen) || (_game.Id == "loom" && vs == MainVirtScreen))
                             return;
                     }
 
@@ -442,7 +442,7 @@ namespace NScumm.Scumm
                 return;
 
             var colors = new Color[256];
-            var noir_mode = (Game.GameId == GameId.SamNMax && ReadVariable(0x8000) != 0);
+            var noir_mode = (Game.Id == "samnmax" && ReadVariable(0x8000) != 0);
             var first = _palDirtyMin;
             var num = _palDirtyMax - first + 1;
 
@@ -520,7 +520,7 @@ namespace NScumm.Scumm
         /// </summary>
         protected void RedrawBGAreas()
         {
-            if (_game.GameId != GameId.Pass && _game.Version >= 4 && _game.Version <= 6)
+            if (_game.Id != "pass" && _game.Version >= 4 && _game.Version <= 6)
             {
                 // Starting with V4 games (with the exception of the PASS demo), text
                 // is drawn over the game graphics (as  opposed to be drawn in a
@@ -789,7 +789,7 @@ namespace NScumm.Scumm
             int sp1 = vs.Pitch - (width * Surface.GetBytesPerPixel(vs.PixelFormat));
             int sp2 = _textSurface.Pitch - width * m;
 
-            if (vs == MainVirtScreen || Game.GameId == GameId.Indy3 || Game.GameId == GameId.Zak)
+            if (vs == MainVirtScreen || Game.Id == "indy3" || Game.Id == "zak")
             {
                 for (int h = 0; h < height; ++h)
                 {

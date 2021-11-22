@@ -51,9 +51,11 @@ namespace NScumm.MonoGame
             {
 
             }
-            ShowTile(WidePreviewTile, 2500, "Game Started", "Game successfully started", new string[] { "If blackscreen wait..", "The engine is loading" });
             ShowTileHandler += ShowTileHandlerCall;
             FPSHandler += FPSHandlerCall;
+
+            
+            ShowTile(WidePreviewTile, 3500, "Game Started", "Game successfully started", new string[] { "If blackscreen wait..", "The engine is loading" });
         }
 
 
@@ -289,7 +291,7 @@ namespace NScumm.MonoGame
                     var savePicker = new FileSavePicker
                     {
                         SuggestedStartLocation = PickerLocationId.Downloads,
-                        SuggestedFileName = $"{backupName}.zip"
+                        SuggestedFileName = $"{backupName}"
                     };
                     var filedb = new[] { ".zip" };
                     savePicker.FileTypeChoices.Add("Archive", filedb);

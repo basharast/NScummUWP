@@ -120,7 +120,7 @@ namespace NScumm.Scumm.Graphics
             if (id == -1)
                 return;
 
-            int numFonts = ((Vm.Game.GameId == GameId.CurseOfMonkeyIsland) && (Vm.Game.Features.HasFlag(GameFeatures.Demo))) ? 4 : 5;
+            int numFonts = ((Vm.Game.Id == "comi") && (Vm.Game.Features.HasFlag(GameFeatures.Demo))) ? 4 : 5;
             Debug.Assert(id < numFonts);
             CurId = id;
             if (_fr[id] == null)

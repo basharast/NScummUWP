@@ -218,7 +218,7 @@ namespace NScumm.Scumm.Smush
             if (_sf[font] != null)
                 return _sf[font];
 
-            if (_vm.Game.GameId == GameId.FullThrottle)
+            if (_vm.Game.Id == "ft")
             {
                 if (!(_vm.Game.Features.HasFlag(GameFeatures.Demo) /*&& (_vm._game.platform == Common::kPlatformDOS)*/))
                 {
@@ -235,7 +235,7 @@ namespace NScumm.Scumm.Smush
                     _sf[font] = new SmushFont(_vm, ft_fonts[font], true, false);
                 }
             }
-            else if (_vm.Game.GameId == GameId.Dig)
+            else if (_vm.Game.Id == "dig")
             {
                 if (!(_vm.Game.Features.HasFlag(GameFeatures.Demo)))
                 {
@@ -245,7 +245,7 @@ namespace NScumm.Scumm.Smush
                     _sf[font] = new SmushFont(_vm, file_font, font != 0, false);
                 }
             }
-            else if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+            else if (_vm.Game.Id == "comi")
             {
                 int numFonts = _vm.Game.Features.HasFlag(GameFeatures.Demo) ? 4 : 5;
                 Debug.Assert(font >= 0 && font < numFonts);
@@ -537,7 +537,7 @@ namespace NScumm.Scumm.Smush
             int size = b.ReadInt32();
             int bsize = (int)subSize - 18;
 
-            if (_vm.Game.GameId != GameId.CurseOfMonkeyIsland)
+            if (_vm.Game.Id != "comi")
             {
                 int track = track_id;
                 if (track_flags == 1)
@@ -712,7 +712,7 @@ namespace NScumm.Scumm.Smush
             var sf = GetFont(0);
             int color = 15;
 
-            if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (_vm.Game.Id == "comi")
             {
                 var transBuf = _vm.TranslateText(System.Text.Encoding.UTF8.GetBytes(str));
                 str = System.Text.Encoding.UTF8.GetString(transBuf);
@@ -788,7 +788,7 @@ namespace NScumm.Scumm.Smush
             Debug.Assert(sf != null);
             sf.Color = (byte)color;
 
-            //            if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland && string2 != null)
+            //            if (_vm.Game.Id == "comi" && string2 != null)
             //            {
             //                str = System.Text.Encoding.UTF8.GetString(string2);
             //            }
@@ -1115,7 +1115,7 @@ namespace NScumm.Scumm.Smush
                 return true;
             }
 
-            if (_vm.Game.GameId == GameId.Dig && (_strings = GetStrings(_vm, "digtxt.trs", true)) != null)
+            if (_vm.Game.Id == "dig" && (_strings = GetStrings(_vm, "digtxt.trs", true)) != null)
             {
                 return true;
             }

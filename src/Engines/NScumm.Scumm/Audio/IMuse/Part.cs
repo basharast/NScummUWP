@@ -306,7 +306,7 @@ namespace NScumm.Scumm.Audio.IMuse
                 // Sam&Max does not have detune, so we just ignore this here. We still get
                 // this called, since Sam&Max uses the same controller for a different
                 // purpose.
-                if (Se.GameId == Scumm.IO.GameId.SamNMax)
+                if (Se.GameId == "samnmax")
                 {
                     #if false
                                         if (MidiChannel) {

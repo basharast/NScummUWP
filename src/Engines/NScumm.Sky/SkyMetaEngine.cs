@@ -30,6 +30,7 @@ namespace NScumm.Sky
     {
         private readonly CultureInfo _culture;
         private string _path;
+        private int _version;
 
         public string Description
         {
@@ -94,6 +95,8 @@ namespace NScumm.Sky
                 return _path;
             }
         }
+
+        public int Version { get => _version; set => _version=value; }
 
         public SkyGameDescriptor(string path)
         {

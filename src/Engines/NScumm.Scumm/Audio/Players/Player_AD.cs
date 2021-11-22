@@ -501,7 +501,7 @@ namespace NScumm.Scumm.Audio.Players
 
             WriteReg(0xBD, _mdvdrState);
 
-            var isLoom = (_vm.Game.GameId == GameId.Loom);
+            var isLoom = (_vm.Game.Id == "loom");
             _timerLimit = isLoom ? 473 : 256;
             _musicTicks = _musicData[3] * (isLoom ? 2 : 1);
             _loopFlag = (_musicData[4] == 0);
@@ -676,7 +676,7 @@ namespace NScumm.Scumm.Audio.Players
             }
 
             _nextEventTimer = ParseVLQ();
-            _nextEventTimer >>= (_vm.Game.GameId == Scumm.IO.GameId.Loom) ? 2 : 1;
+            _nextEventTimer >>= (_vm.Game.Id == "loom") ? 2 : 1;
             if (_nextEventTimer == 0)
             {
                 _nextEventTimer = 1;

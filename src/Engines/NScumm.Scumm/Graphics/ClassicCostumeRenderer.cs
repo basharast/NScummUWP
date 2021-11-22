@@ -657,7 +657,7 @@ namespace NScumm.Scumm.Graphics
             byte[] palette = new byte[4];
             if (_vm.GetCurrentLights().HasFlag(LightModes.ActorUseColors))
             {
-                if (_vm.Game.GameId == GameId.Maniac)
+                if (_vm.Game.Id == "maniac")
                 {
                     palette[1] = v1MMActorPalatte1[actor];
                     palette[2] = v1MMActorPalatte2[actor];
@@ -846,7 +846,7 @@ namespace NScumm.Scumm.Graphics
             // setup palette in the actor code in the original, thus we need to do this
             // mapping over here too.
             var amigaMap = 
-                (_vm.Game.Platform == Platform.Amiga && _vm.Game.GameId == GameId.Indy4) ? _vm.Gdi.RoomPalette : null;
+                (_vm.Game.Platform == Platform.Amiga && _vm.Game.Id == "atlantis") ? _vm.Gdi.RoomPalette : null;
 
             do
             {

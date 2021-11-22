@@ -97,7 +97,7 @@ namespace NScumm.Scumm
                 return;
 
             // Calculate the area of the flashlight
-            if (Game.GameId == GameId.Zak || Game.GameId == GameId.Maniac)
+            if (Game.Id == "zak" || Game.Id == "maniac")
             {
                 x = _mousePos.X + vs.XStart;
                 y = _mousePos.Y - vs.TopLine;
@@ -113,7 +113,7 @@ namespace NScumm.Scumm
             _flashlight.X = x - _flashlight.W / 2 - _screenStartStrip * 8;
             _flashlight.Y = y - _flashlight.H / 2;
 
-            if (Game.GameId == GameId.Loom)
+            if (Game.Id == "loom")
                 _flashlight.Y -= 12;
 
             // Clip the flashlight at the borders

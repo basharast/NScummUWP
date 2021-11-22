@@ -6,6 +6,7 @@ using System.Xml;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -57,12 +58,13 @@ namespace NScumm.MonoGame
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             ServiceLocator.Platform = new WindowsUAPPlatform();
             ServiceLocator.FileStorage = new FileStorage();
             ServiceLocator.TraceFatory = new TraceFactory("IO");
             ServiceLocator.SaveFileManager = new SaveFileManager(ServiceLocator.FileStorage);
+
 #if DEBUG
             if (Debugger.IsAttached)
             {

@@ -45,7 +45,7 @@ namespace NScumm.Scumm
 
             Variables[VariableCurrentLights.Value] = (int)(LightModes.ActorUseBasePalette | LightModes.ActorUseColors | LightModes.RoomLightsOn);
 
-            if (Game.GameId == GameId.Monkey1)
+            if (Game.Id == "monkey")
                 Variables[74] = 1225;
         }
 
@@ -78,8 +78,8 @@ namespace NScumm.Scumm
                         Variables[VariableSoundcard.Value] = 4;
                         break;
                     default:
-                        if ((Game.GameId == GameId.Monkey1 && Game.Variant == "EGA") || (Game.GameId == GameId.Monkey1 && Game.Variant == "VGA")
-                            || (Game.GameId == GameId.Loom && Game.Version == 3)) /*&&  (_game.platform == Common::kPlatformDOS)*/
+                        if ((Game.Id == "monkey" && Game.Variant == "EGA") || (Game.Id == "monkey" && Game.Variant == "VGA")
+                            || (Game.Id == "loom" && Game.Version == 3)) /*&&  (_game.platform == Common::kPlatformDOS)*/
                         {
                             Variables[VariableSoundcard.Value] = 4;
                         }
@@ -106,12 +106,12 @@ namespace NScumm.Scumm
                     // Set screen size for the Macintosh version of Indy3/Loom
                     Variables[39] = 320;
                 }
-                if (Game.Platform == Platform.DOS && Game.GameId == GameId.Loom && Game.Version == 3)
+                if (Game.Platform == Platform.DOS && Game.Id == "loom" && Game.Version == 3)
                 {
                     // Set number of sound resources
                     Variables[39] = 80;
                 }
-                if (Game.GameId == GameId.Loom || Game.Version >= 4)
+                if (Game.Id == "loom" || Game.Version >= 4)
                     Variables[VariableHeapSpace.Value] = 1400;
 
                 if (Game.Version >= 4)
@@ -206,7 +206,7 @@ namespace NScumm.Scumm
             {
                 if (!Settings.CopyProtection)
                 {
-                    if (var == 490 && Game.GameId == GameId.Monkey2)
+                    if (var == 490 && Game.Id == "monkey2")
                     {
                         var = 518;
                     }
@@ -217,19 +217,19 @@ namespace NScumm.Scumm
             if ((var & 0x8000) == 0x8000)
             {
                 //                Debug.Write(string.Format("ReadVariable({0}) => ", var));
-                if (Game.Version <= 3 && !(Game.GameId == GameId.Indy3 && Game.Platform == Platform.FMTowns) &&
-                    !(Game.GameId == GameId.Loom && Game.Platform == Platform.PCEngine))
+                if (Game.Version <= 3 && !(Game.Id == "indy3" && Game.Platform == Platform.FMTowns) &&
+                    !(Game.Id == "loom" && Game.Platform == Platform.PCEngine))
                 {
                     int bit = (int)(var & 0xF);
                     var = (var >> 4) & 0xFF;
 
                     if (!Settings.CopyProtection)
                     {
-                        if (Game.GameId == GameId.Loom && (Game.Platform == Platform.FMTowns) && var == 214 && bit == 15)
+                        if (Game.Id == "loom" && (Game.Platform == Platform.FMTowns) && var == 214 && bit == 15)
                         {
                             return 0;
                         }
-                        else if (Game.GameId == GameId.Zak && (Game.Platform == Platform.FMTowns) && var == 151 && bit == 8)
+                        else if (Game.Id == "zak" && (Game.Platform == Platform.FMTowns) && var == 151 && bit == 8)
                         {
                             return 0;
                         }
@@ -242,7 +242,7 @@ namespace NScumm.Scumm
 
                 if (!Settings.CopyProtection)
                 {
-                    if (Game.GameId == GameId.Indy3 && (Game.Platform == Platform.FMTowns) && var == 1508)
+                    if (Game.Id == "indy3" && (Game.Platform == Platform.FMTowns) && var == 1508)
                         return 0;
                 }
 
@@ -283,8 +283,8 @@ namespace NScumm.Scumm
 
             if ((index & 0x8000) != 0)
             {
-                if (Game.Version <= 3 && !(Game.GameId == GameId.Indy3 && Game.Platform == Platform.FMTowns) &&
-                    !(Game.GameId == GameId.Loom && Game.Platform == Platform.PCEngine))
+                if (Game.Version <= 3 && !(Game.Id == "indy3" && Game.Platform == Platform.FMTowns) &&
+                    !(Game.Id == "loom" && Game.Platform == Platform.PCEngine))
                 {
                     var bit = (int)(index & 0xF);
                     index = (index >> 4) & 0xFF;
@@ -770,7 +770,7 @@ namespace NScumm.Scumm
         void Wait()
         {
             var oldPos = CurrentPos - 1;
-            if (Game.GameId == GameId.Indy3)
+            if (Game.Id == "indy3")
             {
                 _opCode = 2;
             }
@@ -875,7 +875,7 @@ namespace NScumm.Scumm
                     break;
                 case 10:
                     // FIXME: Sound resources are currently missing
-                    if (Game.GameId == GameId.Loom && Game.Platform == Platform.PCEngine)
+                    if (Game.Id == "loom" && Game.Platform == Platform.PCEngine)
                         break;
                     ResourceManager.LockSound(resId);
                     break;
@@ -898,7 +898,7 @@ namespace NScumm.Scumm
 
                 case 14:        // SO_UNLOCKSound
                                 // FIXME: Sound resources are currently missing
-                    if (Game.GameId == GameId.Loom && Game.Platform == Platform.PCEngine)
+                    if (Game.Id == "loom" && Game.Platform == Platform.PCEngine)
                         break;
                     ResourceManager.UnlockSound(resId);
                     break;

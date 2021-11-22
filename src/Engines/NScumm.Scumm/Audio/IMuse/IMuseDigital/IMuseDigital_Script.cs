@@ -86,7 +86,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                     break;
                 case 0x1000: // ImuseSetState
                     //                    this.Trace().Write(TraceSwitches.Music,"ImuseSetState ({0})", b);
-                    if ((_vm.Game.GameId == GameId.Dig) && (_vm.Game.Features.HasFlag(GameFeatures.Demo)))
+                    if ((_vm.Game.Id == "dig") && (_vm.Game.Features.HasFlag(GameFeatures.Demo)))
                     {
                         if (b == 1)
                         {
@@ -102,7 +102,7 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                             }
                         }
                     }
-                    else if ((_vm.Game.GameId == GameId.CurseOfMonkeyIsland) && (_vm.Game.Features.HasFlag(GameFeatures.Demo)))
+                    else if ((_vm.Game.Id == "comi") && (_vm.Game.Features.HasFlag(GameFeatures.Demo)))
                     {
                         switch (b)
                         {
@@ -131,45 +131,45 @@ namespace NScumm.Scumm.Audio.IMuse.IMuseDigital
                                 break;
                         }
                     }
-                    else if (_vm.Game.GameId == GameId.Dig)
+                    else if (_vm.Game.Id == "dig")
                     {
                         SetDigMusicState(b);
                     }
-                    else if (_vm.Game.GameId == GameId.CurseOfMonkeyIsland)
+                    else if (_vm.Game.Id == "comi")
                     {
                         SetComiMusicState(b);
                     }
-                    else if (_vm.Game.GameId == GameId.FullThrottle)
+                    else if (_vm.Game.Id == "ft")
                     {
                         SetFtMusicState(b);
                     }
                     break;
                 case 0x1001: // ImuseSetSequence
                     this.Trace().Write(TraceSwitches.Music, "ImuseSetSequence ({0})", b);
-                    switch (_vm.Game.GameId)
+                    switch (_vm.Game.Id)
                     {
-                        case GameId.Dig:
+                        case "dig":
                             SetDigMusicSequence(b);
                             break;
-                        case GameId.CurseOfMonkeyIsland:
+                        case "comi":
                             SetComiMusicSequence(b);
                             break;
-                        case GameId.FullThrottle:
+                        case "ft":
                             SetFtMusicSequence(b);
                             break;
                     }
                     break;
                 case 0x1002: // ImuseSetCuePoint
                     this.Trace().Write(TraceSwitches.Music, "ImuseSetCuePoint ({0})", b);
-                    if (_vm.Game.GameId == GameId.FullThrottle)
+                    if (_vm.Game.Id == "ft")
                     {
                         SetFtMusicCuePoint(b);
                     }
                     break;
                 case 0x1003: // ImuseSetAttribute
                     this.Trace().Write(TraceSwitches.Music, "ImuseSetAttribute ({0}, {1})", b, c);
-                    Debug.Assert((_vm.Game.GameId == GameId.Dig) || (_vm.Game.GameId == GameId.FullThrottle));
-                    if (_vm.Game.GameId == GameId.Dig)
+                    Debug.Assert((_vm.Game.Id == "dig") || (_vm.Game.Id == "ft"));
+                    if (_vm.Game.Id == "dig")
                     {
                         _attributes[b] = c;
                     }

@@ -328,7 +328,7 @@ namespace NScumm.Scumm
             {
                 InitScreens(8, 144);
             }
-            else if ((Game.GameId == GameId.Maniac) && (_game.Version <= 1) && _game.Platform != Platform.NES)
+            else if ((Game.Id == "maniac") && (_game.Version <= 1) && _game.Platform != Platform.NES)
             {
                 InitScreens(16, 152);
             }
@@ -360,7 +360,7 @@ namespace NScumm.Scumm
             // WORKAROUND for bug in boot script of Loom (CD)
             // The boot script sets the characters of string 21,
             // before creating the string.resource.
-            if (_game.GameId == GameId.Loom)
+            if (_game.Id == "loom")
             {
                 _strings[21] = new byte[13];
             }
@@ -435,15 +435,15 @@ namespace NScumm.Scumm
             {
                 MusicEngine = new Player_V4A(this, Mixer);
             }
-            else if (Game.Platform == Platform.Macintosh && Game.GameId == GameId.Loom)
+            else if (Game.Platform == Platform.Macintosh && Game.Id == "loom")
             {
                 MusicEngine = new Player_V3M(this, Mixer);
             }
-            else if (Game.Platform == Platform.Macintosh && Game.GameId == GameId.Monkey1)
+            else if (Game.Platform == Platform.Macintosh && Game.Id == "monkey")
             {
                 MusicEngine = new Player_V5M(this, Mixer);
             }
-            else if (Game.GameId == GameId.Maniac && Game.Version == 1)
+            else if (Game.Id == "maniac" && Game.Version == 1)
             {
                 MusicEngine = new Player_V1(this, Mixer, Sound.MusicType == MusicDriverTypes.PCjr);
             }
@@ -455,13 +455,13 @@ namespace NScumm.Scumm
             {
                 MusicEngine = new Player_V2CMS(this, Mixer);
             }
-            else if (Game.Platform == Platform.FMTowns && (Game.Version == 3 || Game.GameId == GameId.Monkey1))
+            else if (Game.Platform == Platform.FMTowns && (Game.Version == 3 || Game.Id == "monkey"))
             {
                 MusicEngine = TownsPlayer = new Player_Towns_v1(this, Mixer);
                 if (!TownsPlayer.Init())
                     Debug.WriteLine("Failed to initialize FM-Towns audio driver");
             }
-            else if (Game.GameId == GameId.Loom || Game.GameId == GameId.Indy3)
+            else if (Game.Id == "loom" || Game.Id == "indy3")
             {
                 MusicEngine = new Player_AD(this, Mixer);
             }
@@ -475,7 +475,7 @@ namespace NScumm.Scumm
                         MidiDriver.DetectDevice(Sound.MusicType == MusicDriverTypes.FMTowns
                             ? MusicDriverTypes.FMTowns : MusicDriverTypes.AdLib, selectedDevice));
                     adlibMidiDriver.Property(AdlibMidiDriver.PropertyOldAdLib, (Game.Version < 5) ? 1 : 0);
-                    adlibMidiDriver.Property(AdlibMidiDriver.PropertyScummOPL3, (Game.GameId == GameId.SamNMax) ? 1 : 0);
+                    adlibMidiDriver.Property(AdlibMidiDriver.PropertyScummOPL3, (Game.Id == "samnmax") ? 1 : 0);
                 }
                 else if (Sound.MusicType == MusicDriverTypes.PCSpeaker)
                 {
@@ -497,8 +497,8 @@ namespace NScumm.Scumm
 
                 if (IMuse != null)
                 {
-                    IMuse.AddSysexHandler(0x7D, Game.GameId == GameId.SamNMax ? new SysExFunc(new SamAndMaxSysEx().Do) : new SysExFunc(new ScummSysEx().Do));
-                    IMuse.Property(ImuseProperty.GameId, (uint)Game.GameId);
+                    IMuse.AddSysexHandler(0x7D, Game.Id == "samnmax" ? new SysExFunc(new SamAndMaxSysEx().Do) : new SysExFunc(new ScummSysEx().Do));
+                    IMuse.Property(ImuseProperty.GameId, Game.Id);
                     //                    IMuse.Property(ImuseProperty.NativeMt32, _native_mt32);
                     //                    if (MidiDriver.GetMusicType(deviceHandle) != MusicType.MT32) // MT-32 Emulation shouldn't be GM/GS initialized
                     //                        IMuse.Property(ImuseProperty.Gs, _enable_gs);
@@ -524,7 +524,7 @@ namespace NScumm.Scumm
                 if (_townsClearLayerFlag == 0 && MainVirtScreen != null && ((h - b) != MainVirtScreen.Height))
                     _townsScreen.ClearLayer(0);
 
-                if (Game.GameId != GameId.Monkey1)
+                if (Game.Id != "monkey")
                 {
                     Gdi.Fill(TextSurface,
                         new Rect(0, 0, _textSurface.Width * _textSurfaceMultiplier, _textSurface.Height * _textSurfaceMultiplier), 0);
@@ -660,7 +660,7 @@ namespace NScumm.Scumm
                 _variables[VariableTimer2.Value] += delta;
                 _variables[VariableTimer3.Value] += delta;
 
-                if (Game.GameId == GameId.Indy3)
+                if (Game.Id == "indy3")
                 {
                     _variables[39] += delta;
                     _variables[40] += delta;
@@ -858,7 +858,7 @@ namespace NScumm.Scumm
                         // In FOA in the sentry room, in the chest plate of the statue,
                         // the pegs may be renamed to mouth: this custom name is lost
                         // when leaving the room; this hack prevents this).
-                        //if (owner == OF_OWNER_ROOM && _game.id == GID_INDY4 && 336 <= obj && obj <= 340)
+                        //if (owner == OF_OWNER_ROOM && _game.Id == GID_INDY4 && 336 <= obj && obj <= 340)
                         //    continue;
 
                         _newNames[obj] = new byte[0];

@@ -124,7 +124,7 @@ namespace NScumm.Scumm
                 mouseAndKeyboardStat = 0;
 //                lastKeyHit = Common::KeyState(Common::KEYCODE_ESCAPE);
             }
-            else if (_rightBtnPressed.HasFlag(MouseButtonStatus.Clicked) && (Game.Version <= 3 && Game.GameId != GameId.Loom))
+            else if (_rightBtnPressed.HasFlag(MouseButtonStatus.Clicked) && (Game.Version <= 3 && Game.Id != "loom"))
             {
                 // Pressing right mouse button is treated as if you pressed
                 // the cutscene exit key (ESC) in V0-V3 games. That mimicks
@@ -164,7 +164,7 @@ namespace NScumm.Scumm
             // For games which use VAR_MAINMENU_KEY, disable the mainmenu key if
             // requested by the scripts. We make an exception for COMI (i.e.
             // forcefully always enable it there), as that always disables it.
-            if (Game.GameId == GameId.CurseOfMonkeyIsland)
+            if (Game.Id == "comi")
                 mainmenuKeyEnabled = true;
 
             if (cutsceneExitKeyEnabled && _inputState.IsKeyDown(KeyCode.Escape))
@@ -224,7 +224,7 @@ namespace NScumm.Scumm
                 mouseAndKeyboardStat = KeyCode.Space;
             }
 
-            if ((Game.GameId == Scumm.IO.GameId.Indy4 || Game.GameId == Scumm.IO.GameId.Pass))
+            if ((Game.Id == "atlantis" || Game.Id == "pass"))
             {
                 var numpad = new int[]
                 {

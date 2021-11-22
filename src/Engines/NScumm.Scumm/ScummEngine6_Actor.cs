@@ -61,7 +61,7 @@ namespace NScumm.Scumm
             else
             {
                 var a2 = Actors[obj];
-                if (Game.GameId == Scumm.IO.GameId.SamNMax && a2 == null)
+                if (Game.Id == "samnmax" && a2 == null)
                 {
                     // WORKAROUND bug #742676 SAM: Fish Farm. Note quite sure why it
                     // happens, whether it's normal or due to a bug in the ScummVM code.
@@ -142,7 +142,7 @@ namespace NScumm.Scumm
         [OpCode(0x82)]
         protected virtual void AnimateActor(int index, int anim)
         {
-            if (Game.GameId == Scumm.IO.GameId.Tentacle && _roomResource == 57 &&
+            if (Game.Id == "tentacle" && _roomResource == 57 &&
                 Slots[CurrentScript].Number == 19 && index == 593)
             {
                 // WORKAROUND bug #743363: This very odd case (animateActor(593,250))
@@ -421,7 +421,7 @@ namespace NScumm.Scumm
             // WORKAROUND for bug #2016521: "DOTT: Bernard impersonating LaVerne"
             // Original script did not check for VAR_EGO == 2 before executing
             // a talkActor opcode.
-//            if (_game.id == GID_TENTACLE && vm.slot[CurrentScript].number == 307
+//            if (_game.Id == GID_TENTACLE && vm.slot[CurrentScript].number == 307
 //                && VAR(VAR_EGO) != 2 && _actorToPrintStrFor == 2) {
 //                    _scriptPointer += resStrLen(_scriptPointer) + 1;
 //                    return;

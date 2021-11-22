@@ -54,7 +54,7 @@ namespace NScumm.Scumm.IO
         void ReadClassicIndexFile(BinaryReader br)
         {
             int numGlobalObjects, numRooms, numCostumes, numScripts, numSounds;
-            if (Game.GameId == GameId.Maniac)
+            if (Game.Id == "maniac")
             {
                 numGlobalObjects = 800;
                 numRooms = 55;
@@ -62,7 +62,7 @@ namespace NScumm.Scumm.IO
                 numScripts = 200;
                 numSounds = 100;
             }
-            else if (Game.GameId == GameId.Zak)
+            else if (Game.Id == "zak")
             {
                 numGlobalObjects = 775;
                 numRooms = 61;

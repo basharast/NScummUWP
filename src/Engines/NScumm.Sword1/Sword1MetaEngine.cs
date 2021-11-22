@@ -41,6 +41,7 @@ namespace NScumm.Sword1
     {
         private readonly CultureInfo _culture;
         private readonly string _path;
+        private int _version;
 
         public string Description
         {
@@ -98,6 +99,8 @@ namespace NScumm.Sword1
                 return _path;
             }
         }
+
+        public int Version { get => _version; set => _version=value; }
 
         public SwordGameDescriptor(string path, SwordGameId gameId)
         {

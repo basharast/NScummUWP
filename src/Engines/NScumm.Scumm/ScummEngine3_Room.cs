@@ -64,7 +64,7 @@ namespace NScumm.Scumm
 
             // This is based on disassembly
             Camera.CurrentPosition.X = Camera.DestinationPosition.X = a.Position.X;
-            if ((Game.GameId == GameId.Zak || Game.GameId == GameId.Loom) && (Game.Platform == Platform.FMTowns))
+            if ((Game.Id == "zak" || Game.Id == "loom") && (Game.Platform == Platform.FMTowns))
             {
                 SetCameraAt(a.Position);
             }

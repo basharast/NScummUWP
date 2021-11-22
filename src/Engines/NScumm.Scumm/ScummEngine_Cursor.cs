@@ -106,7 +106,7 @@ namespace NScumm.Scumm
         {
             // Cursor image in both Loom versions are based on images from charset.
             // This function is *only* supported for Loom!
-            if (_game.GameId != Scumm.IO.GameId.Loom)
+            if (_game.Id != "loom")
                 throw new NotSupportedException("RedefineBuiltinCursorFromChar is *only* supported for Loom!");
             if (index < 0 || index >= 4)
                 throw new ArgumentException("index");
@@ -150,7 +150,7 @@ namespace NScumm.Scumm
         {
             // Cursor image in both Looms are based on images from charset.
             // This function is *only* supported for Loom!
-            if (_game.GameId != Scumm.IO.GameId.Loom)
+            if (_game.Id != "loom")
                 throw new NotSupportedException("RedefineBuiltinCursorHotspot is *only* supported for Loom!");
             if (index < 0 || index >= 4)
                 throw new ArgumentException("index");

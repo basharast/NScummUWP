@@ -249,7 +249,7 @@ namespace NScumm.Scumm
             // ...
             // So it checks for invalid array indices only *after* using them to access
             // the array. Ouch.
-            if (Game.GameId == Scumm.IO.GameId.FullThrottle && array == 447 && CurrentRoom == 95 && Slots[CurrentScript].Number == 2010 && idx == -1 && @base == -1)
+            if (Game.Id == "ft" && array == 447 && CurrentRoom == 95 && Slots[CurrentScript].Number == 2010 && idx == -1 && @base == -1)
             {
                 return 0;
             }

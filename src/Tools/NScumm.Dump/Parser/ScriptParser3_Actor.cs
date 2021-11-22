@@ -31,7 +31,7 @@ namespace NScumm.Dump
         Statement GetActorX()
         {
             var resultIndexExp = GetResultIndexExpression();
-            var actorIndex = Game.GameId == Scumm.IO.GameId.Indy3 ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
+            var actorIndex = Game.Id == "indy3" ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
             return SetResultExpression(resultIndexExp,
                 new MemberAccess(
                     new ElementAccess(
@@ -43,7 +43,7 @@ namespace NScumm.Dump
         Statement GetActorY()
         {
             var resultIndexExp = GetResultIndexExpression();
-            var actorIndex = Game.GameId == Scumm.IO.GameId.Indy3 ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
+            var actorIndex = Game.Id == "indy3" ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
             return SetResultExpression(
                 resultIndexExp,
                 new MemberAccess(

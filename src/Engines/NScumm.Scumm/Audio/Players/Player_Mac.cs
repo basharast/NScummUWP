@@ -199,7 +199,7 @@ namespace NScumm.Scumm.Audio.Players
             {
                 if (ser.Version < 94)
                 {
-                    if (_vm.Game.GameId == GameId.Monkey1 && ser.IsLoading)
+                    if (_vm.Game.Id == "monkey" && ser.IsLoading)
                     {
                         var dummyImuse = IMuse.IMuse.Create(null, null);
                         dummyImuse.SaveOrLoad(ser);

@@ -108,7 +108,7 @@ namespace NScumm.Scumm
                 // it. Fortunately this does not prevent frustrated players from
                 // blowing up the mansion, should they feel the urge to.
 
-                if (Game.GameId == GameId.Maniac && Game.Version != 0 && (obj == 182 || obj == 193))
+                if (Game.Id == "maniac" && Game.Version != 0 && (obj == 182 || obj == 193))
                     _resManager.ObjectStateTable[obj] |= (byte)ObjectStateV2.State8;
             }
 
@@ -439,7 +439,7 @@ namespace NScumm.Scumm
         void DrawRoomObjects(int argument)
         {
             var mask = (Game.Version <= 2) ? (int)ObjectStateV2.State8 : 0xF;
-            if (Game.GameId == GameId.SamNMax)
+            if (Game.Id == "samnmax")
             {
                 for (int i = 1; i < _objs.Length; i++)
                 {
@@ -530,8 +530,8 @@ namespace NScumm.Scumm
                 var flags = od.Flags | DrawBitmaps.ObjectMode;
                 // Sam & Max needs this to fix object-layering problems with
                 // the inventory and conversation icons.
-                if ((_game.GameId == GameId.SamNMax && GetClass(od.Number, ObjectClass.IgnoreBoxes)) ||
-                    (_game.GameId == GameId.FullThrottle && GetClass(od.Number, ObjectClass.Player)))
+                if ((_game.Id == "samnmax" && GetClass(od.Number, ObjectClass.IgnoreBoxes)) ||
+                    (_game.Id == "ft" && GetClass(od.Number, ObjectClass.Player)))
                     flags |= DrawBitmaps.DrawMaskOnAll;
 
                 ImageData img = null;

@@ -52,11 +52,11 @@ namespace NScumm.Scumm
             {
                 numActors = 80;
             }
-            else if (Game.Version == 7 || Game.GameId == GameId.SamNMax)
+            else if (Game.Version == 7 || Game.Id == "samnmax")
             {
                 numActors = 30;
             }
-            else if (Game.GameId == GameId.Maniac)
+            else if (Game.Id == "maniac")
             {
                 numActors = 25;
             }
@@ -87,11 +87,11 @@ namespace NScumm.Scumm
                 Actors[i].Init(-1);
 
                 // this is from IDB
-                if ((_game.Version <= 1) || (Game.GameId == GameId.Maniac && (Game.Features.HasFlag(GameFeatures.Demo))))
+                if ((_game.Version <= 1) || (Game.Id == "maniac" && (Game.Features.HasFlag(GameFeatures.Demo))))
                     Actors[i].SetActorCostume(i);
             }
 
-            if (Game.GameId == GameId.Maniac && Game.Version <= 1)
+            if (Game.Id == "maniac" && Game.Version <= 1)
             {
                 ResetV1ActorTalkColor();
             }
@@ -127,7 +127,7 @@ namespace NScumm.Scumm
             ConvertMessageToString(msg, _charsetBuffer, 0);
 
             // WORKAROUND for bugs #770039 and #770049
-            if (_game.GameId == GameId.Loom)
+            if (_game.Id == "loom")
             {
                 if (_charsetBuffer[0] == 0)
                     return;
@@ -146,7 +146,7 @@ namespace NScumm.Scumm
                 int oldact;
 
                 // WORKAROUND bug #770724
-                if (_game.GameId == GameId.Loom && _roomResource == 23 &&
+                if (_game.Id == "loom" && _roomResource == 23 &&
                     _slots[CurrentScript].Number == 232 && _actorToPrintStrFor == 0)
                 {
                     _actorToPrintStrFor = 2;    // Could be anything from 2 to 5. Maybe compare to original?
@@ -201,14 +201,14 @@ namespace NScumm.Scumm
         {
             get
             {
-                if (_game.GameId == GameId.Maniac && Game.Version <= 1 /*&& !(Game.platform == Platform.NES)*/)
+                if (Game.Id == "maniac" && Game.Version <= 1 /*&& !(Game.platform == Platform.NES)*/)
                     return _v1TalkingActor;
                 else
                     return _variables[VariableTalkActor.Value];
             }
             set
             { 
-                if (_game.GameId == GameId.Maniac && Game.Version <= 1 /*&& !(Game.platform == Platform.NES)*/)
+                if (Game.Id == "maniac" && Game.Version <= 1 /*&& !(Game.platform == Platform.NES)*/)
                     _v1TalkingActor = value;
                 else
                     _variables[VariableTalkActor.Value] = value;
@@ -237,7 +237,7 @@ namespace NScumm.Scumm
                 }
             }
 
-            if (Game.GameId == GameId.Dig || _game.GameId == GameId.CurseOfMonkeyIsland)
+            if (Game.Id == "dig" || _game.Id == "comi")
             {
                 TalkingActor = 0;
                 Variables[VariableHaveMessage.Value] = 0;
@@ -292,7 +292,7 @@ namespace NScumm.Scumm
 
         IEnumerable<Actor> GetOrderedActors()
         {
-            if (Game.GameId == GameId.SamNMax)
+            if (Game.Id == "samnmax")
             {
                 return from actor in Actors.Skip(1)
                                    where actor.IsInCurrentRoom

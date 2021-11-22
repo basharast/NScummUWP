@@ -71,7 +71,7 @@ namespace NScumm.Scumm
             if (Game.Version <= 2 && !(_userState.HasFlag(UserStates.IFaceVerbs)))
                 return;
 
-            if (Game.GameId == GameId.FullThrottle)
+            if (Game.Id == "ft")
                 return;
 
             if (_verbMouseOver != verb)
@@ -166,7 +166,7 @@ namespace NScumm.Scumm
                 vs.OldRect = _charset.Str;
                 _charset.Str.Left = _charset.Str.Right;
             }
-            else if (Game.GameId != GameId.FullThrottle)
+            else if (Game.Id != "ft")
             {
                 RestoreVerbBG(verb);
             }
@@ -292,7 +292,7 @@ namespace NScumm.Scumm
 
             var col =
                 ((Game.Platform == Platform.FMTowns) &&
-                    (Game.GameId == GameId.Monkey2 || Game.GameId == GameId.Indy4) &&
+                    (Game.Id == "monkey2" || Game.Id == "atlantis") &&
                     (vs.BkColor == TownsOverrideShadowColor)) ? 0 : vs.BkColor;
             if (vs.OldRect.Left != -1)
             {

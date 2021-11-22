@@ -87,16 +87,16 @@ namespace NScumm.Scumm
             if (!Settings.CopyProtection)
             {
                 // Copy protection was disabled in LucasArts Classic Adventures (PC Disk)
-                if (Game.GameId == GameId.Loom && Game.Platform == Platform.DOS && Game.Version == 3 && CurrentRoom == 69 && script == 201)
+                if (Game.Id == "loom" && Game.Platform == Platform.DOS && Game.Version == 3 && CurrentRoom == 69 && script == 201)
                     script = 205;
                 // Copy protection was disabled in KIXX XL release (Amiga Disk) and
                 // in LucasArts Classic Adventures (PC Disk)
-                if (Game.GameId == Scumm.IO.GameId.Monkey1 && Game.Variant == "VGA" && script == 0x98)
+                if (Game.Id == "monkey" && Game.Variant == "VGA" && script == 0x98)
                 {
                     return;
                 }
                 // Copy protection was disabled in LucasArts Mac CD Game Pack II (Macintosh CD)
-                if (Game.GameId == GameId.Monkey1 && Game.Platform == Platform.Macintosh && script == 155)
+                if (Game.Id == "monkey" && Game.Platform == Platform.Macintosh && script == 155)
                     return;
             }
 

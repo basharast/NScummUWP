@@ -49,7 +49,7 @@ namespace NScumm.Scumm.IO
                 throw new NotSupportedException(string.Format("Invalid signature '{0:X}' in disk 2", signature));
 
             int numResources;
-            if (index.Game.GameId == GameId.Maniac)
+            if (index.Game.Id == "maniac")
             {
                 if (index.Game.Features.HasFlag(GameFeatures.Demo))
                 {

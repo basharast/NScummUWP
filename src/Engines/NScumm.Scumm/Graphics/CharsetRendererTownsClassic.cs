@@ -50,7 +50,7 @@ namespace NScumm.Scumm.Graphics
 //                }
 //
 //                if (spacing) {
-//                    if (Vm._game.id == GID_MONKEY) {
+//                    if (Vm._game.Id == GID_MONKEY) {
 //                        spacing++;
 //                        if (_curId == 2)
 //                            spacing++;
@@ -72,7 +72,7 @@ namespace NScumm.Scumm.Graphics
 
         public override int GetFontHeight()
         {
-            var htbl = (Vm.Game.GameId == GameId.Monkey1) ? sjisFontHeightM1 : ((Vm.Game.GameId == GameId.Indy4) ? sjisFontHeightI4 : sjisFontHeightM2);
+            var htbl = (Vm.Game.Id == "monkey") ? sjisFontHeightM1 : ((Vm.Game.Id == "atlantis") ? sjisFontHeightI4 : sjisFontHeightM2);
             return /*Vm._useCJKMode ? htbl[_curId] :*/ _fontHeight;
         }
 
@@ -170,7 +170,7 @@ namespace NScumm.Scumm.Graphics
                 // For whatever reason MI1 uses a different font width
                 // for alignment calculation and for drawing when
                 // charset 2 is active. This fixes some subtle glitches.
-                if (Vm.Game.GameId == GameId.Monkey1 && CurId == 2)
+                if (Vm.Game.Id == "monkey" && CurId == 2)
                     _width--;
                 _origWidth = _width;
 
@@ -231,7 +231,7 @@ namespace NScumm.Scumm.Graphics
             // games we will simply check for a character greater 127.
             //if (chr < 128)
             //{
-            //    if (((Vm.Game.GameId == GameId.Monkey2 && CurId != 0) || (Vm.Game.GameId == GameId.Indy4 && CurId != 3)) && (chr > 31 && chr != 94 && chr != 95 && chr != 126 && chr != 127))
+            //    if (((Vm.Game.Id == "monkey2" && CurId != 0) || (Vm.Game.Id == "atlantis" && CurId != 3)) && (chr > 31 && chr != 94 && chr != 95 && chr != 126 && chr != 127))
             //        return true;
             //    return false;
             //}
@@ -244,15 +244,15 @@ namespace NScumm.Scumm.Graphics
 //            _shadowColor = Vm.TownsCharsetColorMap[0];
 //            Debug.Assert(Vm._cjkFont);
 //
-//            if (((Vm.Game.GameId == GameId.Monkey1) && (CurId == 2 || CurId == 4 || CurId == 6)) ||
-//                ((Vm.Game.GameId == GameId.Monkey2) && (CurId != 1 && CurId != 5 && CurId != 9)) ||
-//                ((Vm.Game.GameId == GameId.Indy4) && (CurId == 2 || CurId == 3 || CurId == 4))) {
+//            if (((Vm.Game.Id == "monkey") && (CurId == 2 || CurId == 4 || CurId == 6)) ||
+//                ((Vm.Game.Id == "monkey2") && (CurId != 1 && CurId != 5 && CurId != 9)) ||
+//                ((Vm.Game.Id == "atlantis") && (CurId == 2 || CurId == 3 || CurId == 4))) {
 //                Vm._cjkFont.SetDrawingMode(Graphics::FontSJIS::kOutlineMode);
 //            } else {
 //                Vm._cjkFont.SetDrawingMode(Graphics::FontSJIS::kDefaultMode);
 //            }
 //
-//            Vm._cjkFont.ToggleFlippedMode((Vm.Game.GameId == GameId.Monkey1 || Vm.Game.GameId == GameId.Monkey2) && CurId == 3);
+//            Vm._cjkFont.ToggleFlippedMode((Vm.Game.Id == "monkey" || Vm.Game.Id == "monkey2") && CurId == 3);
         }
 
         ushort _sjisCurChar;

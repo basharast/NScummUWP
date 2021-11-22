@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <NScumm xmlns="http://schemas.scemino.com/nscumm/2012/">
   <MD5 signature="e017630555f90e32d1b3a4c1c301ab77" gameId="maniac" variant="Apple II" language="en" features="SixteenColors" platform="Apple2GS" />
   <MD5 signature="8e31928d1d6a7ee6fba14f536cba59c2" gameId="maniac" variant="C64" language="en" features="SixteenColors" platform="C64" />
@@ -165,6 +165,9 @@
   <MD5 signature="d8323015ecb8b10bf53474f6e6b0ae33" gameId="dig" variant="" language="en" />
   <!--<MD5 signature="362c1d281fb9899254cda66ad246c66a" gameId="dig" variant="" language="en" features="Demo" />-->
   <MD5 signature="fe60d6b5ff51b0553ac59963123b5777" gameId="comi" variant="" language="en" />
+
+  
+  <!-- IMPORTANT field 'gameId' below is not in use anymore only id is important -->
   <Game id="maniac" gameId="Maniac" variant="Apple II" version="0" pattern="maniac{0}.dsk" />
   <Game id="maniac" gameId="Maniac" variant="C64" version="0" pattern="maniac{0}.d64" />
   <Game id="maniac" gameId="Maniac" variant="C64 Demo" version="0" pattern="maniacdemo.d64" />
@@ -205,6 +208,7 @@
   <Game id="ft" gameId="FullThrottle" variant="Demo" version="7" pattern="ft.{0:000}" />
   <Game id="dig" gameId="Dig" variant="" version="7" pattern="dig.la{0}" />
   <Game id="comi" gameId="CurseOfMonkeyIsland" variant="" version="8" pattern="comi.la{0}" />
+
   <Description gameId="maniac" text="Maniac Mansion" />
   <Description gameId="zak" text="Zak McKracken and the Alien Mindbenders" />
   <Description gameId="indy3" text="Indiana Jones and the Last Crusade" />
@@ -218,4 +222,6 @@
   <Description gameId="ft" text="Full Throttle" />
   <Description gameId="dig" text="The Dig" />
   <Description gameId="comi" text="The Curse of Monkey Island" />
+
+
 </NScumm>

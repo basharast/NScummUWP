@@ -18,21 +18,10 @@ namespace NScumm.Scumm.IO
         AudioTracks = 0x20,
     }
 
+    /* GameId is not in use anymore, use Id instead */
     public enum GameId
-    {
-        Maniac,
-        Zak,
-        Indy3,
-        Indy4,
-        Monkey1,
-        Monkey2,
-        Loom,
-        Pass,
-        Tentacle,
-        SamNMax,
-        FullThrottle,
-        Dig,
-        CurseOfMonkeyIsland
+    { 
+        None
     }
 
     public class GameInfo : IGameDescriptor
@@ -45,6 +34,7 @@ namespace NScumm.Scumm.IO
 
         public string Pattern { get; set; }
 
+        /*  GameId not in use anymore */
         public GameId GameId { get; set; }
 
         public string Variant { get; set; }

@@ -936,7 +936,7 @@ namespace NScumm.Scumm
         public void Animate(int anim)
         {
             int cmd, dir;
-            if (_scumm.Game.Version >= 7 && !((_scumm.Game.GameId == GameId.FullThrottle) && _scumm.Game.Features.HasFlag(GameFeatures.Demo) /*&& (_scumm->_game.platform == Common::kPlatformDOS)*/))
+            if (_scumm.Game.Version >= 7 && !((_scumm.Game.Id == "ft") && _scumm.Game.Features.HasFlag(GameFeatures.Demo) /*&& (_scumm->_game.platform == Common::kPlatformDOS)*/))
             {
 
                 if (anim == 0xFF)
@@ -1219,7 +1219,7 @@ namespace NScumm.Scumm
 
         public virtual void StartAnimActor(int frame)
         {
-            if (_scumm.Game.Version >= 7 && !((_scumm.Game.GameId == GameId.FullThrottle) && (_scumm.Game.Features.HasFlag(GameFeatures.Demo) /*&& (_vm.Game.Platform == Platform.DOS)*/)))
+            if (_scumm.Game.Version >= 7 && !((_scumm.Game.Id == "ft") && (_scumm.Game.Features.HasFlag(GameFeatures.Demo) /*&& (_vm.Game.Platform == Platform.DOS)*/)))
             {
                 switch (frame)
                 {
@@ -1336,7 +1336,7 @@ namespace NScumm.Scumm
             if (_scumm.Game.Version == 8 && _scumm.Variables[_scumm.VariableHaveMessage.Value] == 2)
                 return;
 
-            if (_scumm.Game.GameId == GameId.FullThrottle && _scumm.String[0].NoTalkAnim)
+            if (_scumm.Game.Id == "ft" && _scumm.String[0].NoTalkAnim)
                 return;
 
             if (_scumm.TalkingActor == 0 || Room != _scumm.CurrentRoom || _frame == f)
@@ -1565,7 +1565,7 @@ namespace NScumm.Scumm
             if (_scumm.Game.Version <= 2)
                 _targetFacing = (ushort)ScummMath.GetAngleFromPos(Actor2.V12_X_MULTIPLIER * deltaXFactor, Actor2.V12_Y_MULTIPLIER * deltaYFactor, false);
             else
-                _targetFacing = (ushort)ScummMath.GetAngleFromPos(deltaXFactor, deltaYFactor, (_scumm.Game.GameId == GameId.Dig || _scumm.Game.GameId == GameId.CurseOfMonkeyIsland));
+                _targetFacing = (ushort)ScummMath.GetAngleFromPos(deltaXFactor, deltaYFactor, (_scumm.Game.Id == "dig" || _scumm.Game.Id == "comi"));
 
             return ActorWalkStep();
         }
@@ -1662,7 +1662,7 @@ namespace NScumm.Scumm
             // not necessary here because we never call the function unless the
             // actor is in the current room anyway.
 
-            if (!IgnoreBoxes || _scumm.Game.GameId == GameId.Loom)
+            if (!IgnoreBoxes || _scumm.Game.Id == "loom")
             {
                 var specdir = _scumm._extraBoxFlags[Walkbox];
                 if (specdir != 0)
@@ -1764,7 +1764,7 @@ namespace NScumm.Scumm
             // For some boxes, we ignore the scaling and use whatever values the
             // scripts set. This is used e.g. in the Mystery Vortex in Sam&Max.
             // Older games used the flag 0x20 differently, though.
-            if (_scumm.Game.GameId == GameId.SamNMax && (_scumm.GetBoxFlags(Walkbox).HasFlag(BoxFlags.IgnoreScale)))
+            if (_scumm.Game.Id == "samnmax" && (_scumm.GetBoxFlags(Walkbox).HasFlag(BoxFlags.IgnoreScale)))
                 return;
 
             BoxScale = (ushort)_scumm.GetBoxScale(Walkbox);

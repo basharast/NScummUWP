@@ -29,7 +29,7 @@ namespace NScumm.Scumm
     {
         void WaitForActor()
         {
-            if (Game.GameId == Scumm.IO.GameId.Indy3)
+            if (Game.Id == "indy3")
             {
                 var pos = CurrentPos - 1;
                 var actor = Actors[GetVarOrDirectByte(OpCodeParameter.Param1)];
@@ -60,14 +60,14 @@ namespace NScumm.Scumm
         protected override void GetActorX()
         {
             GetResult();
-            var actorIndex = Game.GameId == Scumm.IO.GameId.Indy3 ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
+            var actorIndex = Game.Id == "indy3" ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
             SetResult(GetObjX(actorIndex));
         }
 
         protected override void GetActorY()
         {
             GetResult();
-            var actorIndex = Game.GameId == Scumm.IO.GameId.Indy3 ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
+            var actorIndex = Game.Id == "indy3" ? GetVarOrDirectByte(OpCodeParameter.Param1) : GetVarOrDirectWord(OpCodeParameter.Param1);
             SetResult(GetObjY(actorIndex));
         }
 

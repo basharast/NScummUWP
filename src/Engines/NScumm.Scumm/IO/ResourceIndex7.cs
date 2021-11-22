@@ -143,7 +143,7 @@ namespace NScumm.Scumm.IO
 
 //            _objectRoomTable = (byte *)calloc(_numGlobalObjects, 1);
 //
-            if ((Game.GameId == GameId.FullThrottle) && (Game.Features.HasFlag(GameFeatures.Demo)) /*&& (_game.platform == Common::kPlatformDOS)*/)
+            if ((Game.Id == "ft") && (Game.Features.HasFlag(GameFeatures.Demo)) /*&& (_game.platform == Common::kPlatformDOS)*/)
                 numGlobalScripts = 300;
             else
                 numGlobalScripts = 2000;

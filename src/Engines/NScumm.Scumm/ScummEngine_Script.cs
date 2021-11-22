@@ -48,11 +48,11 @@ namespace NScumm.Scumm
 
         public TimeSpan RunBootScript(int bootParam = 0)
         {
-            if (!Settings.CopyProtection && _game.GameId == Scumm.IO.GameId.Indy4 && bootParam == 0)
+            if (!Settings.CopyProtection && _game.Id == "atlantis" && bootParam == 0)
             {
                 bootParam = -7873;
             }
-            else if (!Settings.CopyProtection && _game.GameId == Scumm.IO.GameId.SamNMax && bootParam == 0)
+            else if (!Settings.CopyProtection && _game.Id == "samnmax" && bootParam == 0)
             {
                 bootParam = -1;
             }
@@ -293,7 +293,7 @@ namespace NScumm.Scumm
                 a.SetDirection(dir + 180);
                 a.StopActorMoving();
 
-                if (Game.GameId == Scumm.IO.GameId.SamNMax)
+                if (Game.Id == "samnmax")
                 {
                     Camera.CurrentPosition.X = Camera.DestinationPosition.X = a.Position.X;
                     SetCameraAt(a.Position);
@@ -333,14 +333,14 @@ namespace NScumm.Scumm
             _doEffect = true;
 
             // Hint the backend about the virtual keyboard during copy protection screens
-            if (_game.GameId == GameId.Monkey2)
+            if (_game.Id == "monkey2")
             {
                 if (room == 108)
                     _inputManager.ShowVirtualKeyboard();
                 else
                     _inputManager.HideVirtualKeyboard();
             }
-            else if (_game.GameId == GameId.Monkey1 && _game.Variant == "ega")
+            else if (_game.Id == "monkey" && _game.Variant == "ega")
             {   // this is my estimation that the room code is 90 (untested)
                 if (room == 90)
                     _inputManager.ShowVirtualKeyboard();

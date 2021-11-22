@@ -48,6 +48,7 @@ namespace NScumm.Scumm.Audio.IMuse
 
         int ClearQueue();
 
+        uint Property(ImuseProperty prop, string value);
         uint Property(ImuseProperty prop, uint value);
 
         void AddSysexHandler(byte mfgID, SysExFunc handler);

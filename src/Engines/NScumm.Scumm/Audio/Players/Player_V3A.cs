@@ -74,7 +74,7 @@ namespace NScumm.Scumm.Audio.Players
             var data = _vm.ResourceManager.GetSound(_vm.Sound.MusicType, nr);
             Debug.Assert(data != null);
 
-            if ((_vm.Game.GameId != GameId.Indy3) && (_vm.Game.GameId != GameId.Loom))
+            if ((_vm.Game.Id != "indy3") && (_vm.Game.Id != "loom"))
                 Debug.WriteLine("player_v3a - unknown game");
 
             if (!_isinit)
@@ -84,7 +84,7 @@ namespace NScumm.Scumm.Audio.Players
                 int offset = 4;
                 int numInstruments;
                 byte[] ptr;
-                if (_vm.Game.GameId == GameId.Indy3)
+                if (_vm.Game.Id == "indy3")
                 {
                     ptr = _vm.ResourceManager.GetSound(_vm.Sound.MusicType, 83);
                     numInstruments = 12;
@@ -125,7 +125,7 @@ namespace NScumm.Scumm.Audio.Players
                         _wavetable[i]._oct[j] = ptr.ToUInt16BigEndian(offset + 8);
                         offset += 10;
                     }
-                    if (_vm.Game.GameId == GameId.Indy3)
+                    if (_vm.Game.Id == "indy3")
                     {
                         _wavetable[i]._pitadjust = 0;
                         offset += 2;

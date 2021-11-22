@@ -10,6 +10,11 @@ using Windows.Storage.Pickers;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.ApplicationModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using Windows.ApplicationModel.Core;
+using System.Runtime.InteropServices;
+using Windows.UI.Xaml.Controls;
 
 namespace NScumm.MonoGame
 {
@@ -20,6 +25,8 @@ namespace NScumm.MonoGame
             get { return DataContext as IGameLibraryViewModel; }
             set { DataContext = value; }
         }
+
+        IProgress<double> scanningProgress;
 
         public GameLibraryPage()
         {
@@ -32,12 +39,16 @@ namespace NScumm.MonoGame
             catch (Exception e)
             {
             }
+
+
             DataContext = new GameLibraryViewModel();
             NoGameTextBlock.SetBinding(VisibilityProperty, new Binding { Path = new PropertyPath("ShowNoGameMessage"), Converter = new ShowNoGameMessageToVisibilityConverter() });
             ProgressPanel.SetBinding(VisibilityProperty, new Binding { Path = new PropertyPath("IsScanning"), Converter = new IsScanningToVisibilityConverter() });
-
+            ScanningGamesTextBlockProgress.SetBinding(ProgressBar.ValueProperty, new Binding { Path = new PropertyPath("LoadingProgressValue") });
+            
             GamePage.ShowTile(WidePreviewTile, 1500, "Welcome", $"NSCUMM v{GetAppVersion()}");
         }
+
         public static string GetAppVersion()
         {
             try
@@ -90,10 +101,10 @@ namespace NScumm.MonoGame
         {
             try
             {
-                await ShowNotice("Remember, it will replace your previous database (if imported before)");
+                await ShowNotice("Remember, it will replace your previous database (if imported before)\nDon't worry, It will not affect on the built-in database");
                 var filePicker = new FileOpenPicker();
                 filePicker.SuggestedStartLocation = PickerLocationId.Downloads;
-                filePicker.FileTypeFilter.Add(".xml");
+                filePicker.FileTypeFilter.Add(".dat");
                 var documentFile = await filePicker.PickSingleFileAsync();
                 if (documentFile != null)
                 {
@@ -102,8 +113,18 @@ namespace NScumm.MonoGame
                     {
                         try
                         {
-                         await documentFile.CopyAsync(ApplicationData.Current.LocalFolder, "Nscumm.xml", NameCollisionOption.ReplaceExisting);
-                         GamePage.ShowTile(WidePreviewTile, 1500, "Import Database", "Database imported");
+                            await documentFile.CopyAsync(ApplicationData.Current.LocalFolder, "ScummVM.dat", NameCollisionOption.ReplaceExisting);
+                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Low, async () =>
+                            {
+                                try
+                                {
+                                    GamePage.ShowTile(WidePreviewTile, 2500, "Import Database", "Database imported", new string[] { "It will be used", "Beside the built-in" });
+                                }
+                                catch (Exception ex)
+                                {
+
+                                }
+                            });
                         }
                         catch (Exception ex)
                         {
@@ -133,6 +154,103 @@ namespace NScumm.MonoGame
             messageDialog.Commands.Add(new UICommand(
                 "Close"));
             await messageDialog.ShowAsync();
+        }
+
+        private async void ImportDataBase_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var messageDialog = new MessageDialog("Do you want to clear all listed games?");
+                messageDialog.Commands.Add(new UICommand("Clear", new UICommandInvokedHandler(this.CommandInvokedHandler2)));
+                messageDialog.Commands.Add(new UICommand("Cancel"));
+                await messageDialog.ShowAsync();
+
+            }
+            catch (Exception ex)
+            {
+                ShowDialog(ex);
+            }
+        }
+        private async void CommandInvokedHandler2(IUICommand command)
+        {
+            try
+            {
+                if (GameListBox.Items != null && GameListBox.Items.Count > 0)
+                {
+                    ApplicationData.Current.LocalSettings.DeleteContainer("Games");
+                    ApplicationData.Current.LocalSettings.DeleteContainer("Folders");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Low, async () =>
+                    {
+                        try
+                        {
+                            GamePage.ShowTile(WidePreviewTile, 1500, "Clear List", "List cleared successfully");
+                            ViewModel.ClearGames();
+                            ShowDialog("Please restart the app before add any new games");
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowDialog(ex);
+            }
+        }
+
+        
+        private async void CommandInvokedHandler3(IUICommand command)
+        {
+            try
+            {
+                var testFile = await ApplicationData.Current.LocalFolder.TryGetItemAsync("ScummVM.dat");
+                if (testFile != null)
+                {
+                    await testFile.DeleteAsync();
+                    GamePage.ShowTile(WidePreviewTile, 1500, "Unset Database", $"Unset done");
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async void UnsetDatabase_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var testFile = await ApplicationData.Current.LocalFolder.TryGetItemAsync("ScummVM.dat");
+                if (testFile != null)
+                {
+                    var messageDialog = new MessageDialog("Do you need to unset the current custom database?");
+                    messageDialog.Commands.Add(new UICommand("Unset", new UICommandInvokedHandler(this.CommandInvokedHandler3)));
+                    messageDialog.Commands.Add(new UICommand("Cancel"));
+                    await messageDialog.ShowAsync();
+                }
+                else
+                {
+                    ShowDialog("No database found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowDialog(ex);
+            }
+        }
+    }
+    public static class StringExtensions
+    {
+        public static string FirstCharToUpper(this string input)
+        {
+            switch (input)
+            {
+                case null: throw new ArgumentNullException(nameof(input));
+                case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                default: return input[0].ToString().ToUpper() + input.Substring(1);
+            }
         }
     }
 }
