@@ -34,7 +34,7 @@
 - Bugs fixes
 
 
-#Limitations
+# Limitations
 
 - You cannot go back to the games list (for now)
 
