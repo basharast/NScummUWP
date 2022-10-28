@@ -1,6 +1,6 @@
 <p align="center">
   <img src="assets/logo.png" width="176"><br>
-  <b>Enhanced Scumm Engine (UWP) based on NScumm by scemino</b><br>
+  <b>Enhanced Scumm Engine (UWP)</b><br>
   <a href="./src">Source</a> |
   <a href="https://github.com/scemino/nscumm">Original Project</a> 
   <br><br>
